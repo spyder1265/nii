@@ -12,10 +12,10 @@ const Navbar: React.FC<INavbar> = ({}) => {
   };
 
   return (
-    <nav className='flex items-center justify-between z-40 fixed top-0 left-0 right-0 flex-wrap bg-transparent p-6 md:px-56'>
+    <nav className='flex items-center justify-between z-40 fixed top-0 left-0 right-0 backdrop-blur-md flex-wrap bg-transparent p-6 md:px-56'>
       <div className='flex md:hidden items-center flex-shrink-0 text-white mr-6'>
         <span className='font-semibold text-3xl tracking-tight logo'>
-          nii money
+          nii monney
         </span>
       </div>
       <div className='block lg:hidden'>
