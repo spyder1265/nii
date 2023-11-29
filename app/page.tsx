@@ -107,9 +107,19 @@ export default function Home() {
             ))}
             <button
               className='
-            text-2xl font-bold text-center
-            underline
-            my-4
+              border-2 border-[#2d323c]
+              rounded-full
+              py-2 px-4
+              focus:outline-none
+              transition
+              duration-700
+              focus:ring-2 focus:ring-[#2d323c]
+              focus:border-transparent
+              text-gray-200
+              hover:bg-gray-300
+              hover:text-gray-700
+              shadow-md
+              shadow-[rgba(0,0,0,0.4)]
             '
             >
               See More
@@ -120,8 +130,6 @@ export default function Home() {
           <Footer />
         </footer>
       </main>
-
-      {/*    style='height: 100%; width: 100%; object-fit: cover; object-position: center; opacity: 1;' */}
     </>
   );
 }
