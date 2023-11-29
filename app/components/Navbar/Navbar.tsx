@@ -61,7 +61,7 @@ const Navbar: React.FC<INavbar> = ({}) => {
       </div>
       <div className='md:flex hidden items-center flex-shrink-0 text-white mr-6'>
         <span className='font-semibold text-3xl tracking-tight logo'>
-          nii money
+          nii monney
         </span>
       </div>
     </nav>
