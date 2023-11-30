@@ -166,8 +166,10 @@ const page: React.FC<Ipage> = ({}) => {
             </div>
           </div>
         </section>
-        <footer className='font-sans text-sm font-bold text-gray-100 opacity-50 pb-4'>
-          &copy; Nii Monney 2021{" "}
+        <footer className='pb-4'>
+          <span className='font-sans text-sm font-bold text-gray-100 opacity-50 '>
+            &copy; Nii Monney 2021
+          </span>
         </footer>
       </main>
     </>

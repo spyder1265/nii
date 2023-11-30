@@ -12,9 +12,13 @@ const page: React.FC<Ipage> = ({}) => {
             <Navbar />
           </div>
         </header>
-        <section className='flex items-center text-center py-8 pb-11 px-8 md:px-56 '></section>
-        <footer className='w-full'>
-          <Footer />
+        <section className='flex items-center text-center py-8 pb-11 px-8 md:px-56 '>
+          <h1 className='text-3xl animate-pulse font-bold'>Building</h1>
+        </section>
+        <footer className='w-full flex items-center justify-center'>
+          <span className='font-sans text-sm font-bold text-gray-100 opacity-50 '>
+            &copy; Nii Monney 2021
+          </span>
         </footer>
       </main>
     </>

@@ -12,7 +12,7 @@ interface ICarousel {
 
 const CCarousel: React.FC<ICarousel> = ({ dataArray }) => {
   return (
-    <Carousel autoplay autoplaySpeed={6500} className='h-[400px] w-[500px]'>
+    <Carousel autoplay autoplaySpeed={5500} className='h-[400px] w-[500px]'>
       {dataArray.map((data, index) => (
         <div key={index} className='h-[400px] relative w-[500px]'>
           <Image

@@ -6,7 +6,7 @@ import CCarousel from "./components/Carousel/Carousel";
 export default function Home() {
   const projects = [
     {
-      name: "ghProjects",
+      name: "Ghana Projects",
       description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
       projects: [
         {
@@ -21,10 +21,58 @@ export default function Home() {
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
           image: "/img/HJVHV.png",
         },
+        {
+          name: "PHJVHV",
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+          image: "/img/1 .00_04_03_07.Still006.png",
+        },
+        {
+          name: "PHJVHV",
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+          image: "/img/1.00_00_11_17.Still005.png",
+        },
+        {
+          name: "PHJVHV",
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+          image: "/img/3.00_00_17_11.Still004.png",
+        },
+        {
+          name: "PHJVHV",
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+          image: "/img/4k wallpaper.png",
+        },
+        {
+          name: "PHJVHV",
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+          image: "/img/final 2ex.png",
+        },
+        {
+          name: "PHJVHV",
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+          image: "/img/looool.00_00_06_19.Still009.png",
+        },
+        {
+          name: "PHJVHV",
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+          image: "/img/ready.png",
+        },
+        {
+          name: "PHJVHV",
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+          image: "/img/trial , but we done .00_01_19_16.Still002.png",
+        },
       ],
     },
     {
-      name: "ComProjects",
+      name: "Commercial Projects",
       description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
       projects: [
         {
