@@ -6,8 +6,9 @@ import CCarousel from "./components/Carousel/Carousel";
 export default function Home() {
   const projects = [
     {
-      name: "Ghana Projects",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      name: "Ghanaverse",
+      description:
+        "A 3d collection curated by an independent 3d generalist based on the concept of the multiverse in a Ghanaian scope it highlights some major aspects in Ghanaian culture and History and focuses on the concept of Alternate Realities",
       projects: [
         {
           name: "Final Start",
@@ -27,12 +28,6 @@ export default function Home() {
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
           image: "/img/trial , but we done .00_01_19_16.Still002.png",
         },
-        {
-          name: "PHJVHV",
-          description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-          image: "/img/final 2ex.png",
-        },
       ],
     },
     {
@@ -43,13 +38,19 @@ export default function Home() {
           name: "Final Start",
           description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-          image: "/img/final start.png",
+          image: "/img/others/1.png",
         },
         {
           name: "PHJVHV",
           description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-          image: "/img/HJVHV.png",
+          image: "/img/others/6.png",
+        },
+        {
+          name: "PHJVHV",
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+          image: "/img/others/lasdddjnkds.png",
         },
       ],
     },
@@ -115,12 +116,16 @@ export default function Home() {
                 <div
                   className={`w-2/4 h-full px-3 ${
                     index % 2 === 0 ? "text-left" : "text-right"
-                  } flex flex-col justify-around`}
+                  } flex flex-col justify-around gap-5 `}
                 >
-                  <h3 className='text-lg font-bold underline'>
-                    {project.name}
-                  </h3>
-                  <p className='text-sm font-sans'>{project.description}</p>
+                  <div>
+                    <h3 className='text-lg font-bold underline'>
+                      {project.name}
+                    </h3>
+                  </div>
+                  <div>
+                    <p className='text-sm font-sans'>{project.description}</p>
+                  </div>
                 </div>
                 <div
                   className={`w-1/2 ${

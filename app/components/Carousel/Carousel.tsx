@@ -27,7 +27,7 @@ const CCarousel: React.FC<ICarousel> = ({ dataArray }) => {
             alt={data.name}
             width={200}
             height={200}
-            className='h-[20rem] md:h-[30] lg:h-[] object-cover  w-[15rem] md:w-[18rem] lg:w-[31rem]'
+            className='h-[20rem] md:h-[30] lg:h-[] object-cover w-[15rem] md:w-[18rem] lg:w-[31rem]'
           />
           <div className='bg-[rgba(0,0,0,0.4)] h-full w-full top-0 absolute'></div>
         </div>
