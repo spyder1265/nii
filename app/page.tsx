@@ -1,20 +1,46 @@
 import Image from "next/image";
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
+import CCarousel from "./components/Carousel/Carousel";
 
 export default function Home() {
   const projects = [
     {
-      title: "Final Start",
+      name: "ghProjects",
       description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      imageSrc: "/img/final start.png",
+      projects: [
+        {
+          name: "Final Start",
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+          image: "/img/final start.png",
+        },
+        {
+          name: "PHJVHV",
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+          image: "/img/HJVHV.png",
+        },
+      ],
     },
     {
-      title: "PHJVHV",
+      name: "ComProjects",
       description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      imageSrc: "/img/HJVHV.png",
+      projects: [
+        {
+          name: "Final Start",
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+          image: "/img/final start.png",
+        },
+        {
+          name: "PHJVHV",
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+          image: "/img/HJVHV.png",
+        },
+      ],
     },
-    // Add more projects here
   ];
 
   return (
@@ -62,7 +88,7 @@ export default function Home() {
             </h1>
           </div>
           <div className='w-full flex flex-col items-center justify-center'>
-            {projects.map((project, index) => (
+            {projects.slice(0, 2).map((project, index) => (
               <div
                 key={index}
                 className='flex items-center rounded-lg md:w-full md:max-h-96 overflow-hidden my-4 shadow-lg shadow-[rgba(0,0,0,0.4)]'
@@ -72,13 +98,7 @@ export default function Home() {
                     index % 2 !== 0 ? "flex" : "hidden"
                   } h-full`}
                 >
-                  <Image
-                    src={project.imageSrc}
-                    alt={project.title}
-                    width={200}
-                    height={200}
-                    className='w-full'
-                  />
+                  <CCarousel dataArray={project.projects} />
                 </div>
                 <div
                   className={`w-2/4 h-full px-3 ${
@@ -86,7 +106,7 @@ export default function Home() {
                   } flex flex-col justify-around`}
                 >
                   <h3 className='text-lg font-bold underline'>
-                    {project.title}
+                    {project.name}
                   </h3>
                   <p className='text-sm font-sans'>{project.description}</p>
                 </div>
@@ -95,13 +115,7 @@ export default function Home() {
                     index % 2 === 0 ? "flex" : "hidden"
                   } h-full`}
                 >
-                  <Image
-                    src={project.imageSrc}
-                    alt={project.title}
-                    width={200}
-                    height={200}
-                    className='w-full'
-                  />
+                  <CCarousel dataArray={project.projects} />
                 </div>
               </div>
             ))}

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Orbitron } from "next/font/google";
 import "./globals.css";
 import "animate.css";
+import StyledComponentsRegistry from "../lib/AntdRegistry";
 
 const orbitron = Orbitron({ subsets: ["latin"] });
 
@@ -17,7 +18,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <body className={orbitron.className}>{children}</body>
+      <body className={orbitron.className}>
+        <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
+      </body>
     </html>
   );
 }
