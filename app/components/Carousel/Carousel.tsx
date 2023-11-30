@@ -12,15 +12,22 @@ interface ICarousel {
 
 const CCarousel: React.FC<ICarousel> = ({ dataArray }) => {
   return (
-    <Carousel autoplay autoplaySpeed={5500} className='h-[400px] w-[500px]'>
+    <Carousel
+      autoplay
+      autoplaySpeed={5500}
+      className='h-[20rem] md:h-[30] lg:h-[]  w-[15rem] md:w-[18rem] lg:w-[31rem]'
+    >
       {dataArray.map((data, index) => (
-        <div key={index} className='h-[400px] relative w-[500px]'>
+        <div
+          key={index}
+          className='h-[20rem] md:h-[30] lg:h-[] relative  w-[15rem] md:w-[18rem] lg:w-[31rem]'
+        >
           <Image
             src={data.image}
             alt={data.name}
             width={200}
             height={200}
-            className='h-[400px] object-cover w-[500px]'
+            className='h-[20rem] md:h-[30] lg:h-[] object-cover  w-[15rem] md:w-[18rem] lg:w-[31rem]'
           />
           <div className='bg-[rgba(0,0,0,0.4)] h-full w-full top-0 absolute'></div>
         </div>

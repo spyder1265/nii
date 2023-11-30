@@ -25,49 +25,13 @@ export default function Home() {
           name: "PHJVHV",
           description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-          image: "/img/1 .00_04_03_07.Still006.png",
-        },
-        {
-          name: "PHJVHV",
-          description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-          image: "/img/1.00_00_11_17.Still005.png",
-        },
-        {
-          name: "PHJVHV",
-          description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-          image: "/img/3.00_00_17_11.Still004.png",
-        },
-        {
-          name: "PHJVHV",
-          description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-          image: "/img/4k wallpaper.png",
+          image: "/img/trial , but we done .00_01_19_16.Still002.png",
         },
         {
           name: "PHJVHV",
           description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
           image: "/img/final 2ex.png",
-        },
-        {
-          name: "PHJVHV",
-          description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-          image: "/img/looool.00_00_06_19.Still009.png",
-        },
-        {
-          name: "PHJVHV",
-          description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-          image: "/img/ready.png",
-        },
-        {
-          name: "PHJVHV",
-          description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-          image: "/img/trial , but we done .00_01_19_16.Still002.png",
         },
       ],
     },
@@ -144,7 +108,7 @@ export default function Home() {
                 <div
                   className={`w-1/2 ${
                     index % 2 !== 0 ? "flex" : "hidden"
-                  } h-full`}
+                  } h-full max-w-[438] max-h-[369.844]`}
                 >
                   <CCarousel dataArray={project.projects} />
                 </div>
@@ -161,7 +125,7 @@ export default function Home() {
                 <div
                   className={`w-1/2 ${
                     index % 2 === 0 ? "flex" : "hidden"
-                  } h-full`}
+                  } h-full max-w-[438] max-h-[369.844]`}
                 >
                   <CCarousel dataArray={project.projects} />
                 </div>
