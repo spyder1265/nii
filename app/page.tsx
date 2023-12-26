@@ -1,61 +1,10 @@
-import Image from "next/image";
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
 import CCarousel from "./components/Carousel/Carousel";
+import { projects } from "./data";
+import { FaArrowRight } from "react-icons/fa6";
 
 export default function Home() {
-  const projects = [
-    {
-      name: "Ghanaverse",
-      description:
-        "A 3d collection curated by an independent 3d generalist based on the concept of the multiverse in a Ghanaian scope it highlights some major aspects in Ghanaian culture and History and focuses on the concept of Alternate Realities",
-      projects: [
-        {
-          name: "Final Start",
-          description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-          image: "/img/final start.png",
-        },
-        {
-          name: "PHJVHV",
-          description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-          image: "/img/HJVHV.png",
-        },
-        {
-          name: "PHJVHV",
-          description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-          image: "/img/trial , but we done .00_01_19_16.Still002.png",
-        },
-      ],
-    },
-    {
-      name: "Commercial Projects",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      projects: [
-        {
-          name: "Final Start",
-          description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-          image: "/img/others/1.png",
-        },
-        {
-          name: "PHJVHV",
-          description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-          image: "/img/others/6.png",
-        },
-        {
-          name: "PHJVHV",
-          description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-          image: "/img/others/lasdddjnkds.png",
-        },
-      ],
-    },
-  ];
-
   return (
     <>
       <main className='flex min-h-screen z-40 sticky top-0 flex-col items-center'>
@@ -116,7 +65,7 @@ export default function Home() {
                 <div
                   className={`w-2/4 h-full px-3 ${
                     index % 2 === 0 ? "text-left" : "text-right"
-                  } flex flex-col justify-around gap-5 `}
+                  } flex flex-col justify-around gap-5`}
                 >
                   <div>
                     <h3 className='text-lg font-bold underline'>
@@ -136,11 +85,14 @@ export default function Home() {
                 </div>
               </div>
             ))}
-            <button
+            <a
               className='
               border-2 border-[#2d323c]
               rounded-full
+              inline-flex
+              items-center
               py-2 px-4
+              my-6
               focus:outline-none
               transition
               duration-700
@@ -152,9 +104,10 @@ export default function Home() {
               shadow-md
               shadow-[rgba(0,0,0,0.4)]
             '
+              href={"/projects"}
             >
-              See More
-            </button>
+              See All <FaArrowRight className='ml-2' />
+            </a>
           </div>
         </section>
         <footer className='w-full'>

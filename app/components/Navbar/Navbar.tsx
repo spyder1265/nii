@@ -51,7 +51,7 @@ const Navbar: React.FC<INavbar> = ({}) => {
             className={`block mt-4 lg:inline-block lg:mt-0  mr-6 ${
               pathname === "/"
                 ? "text-gray-400 hover:cursor-not-allowed"
-                : "text-gray-200 hover:text-white hover:scale-125 transition-all duration-500"
+                : "text-gray-200 hover:text-white hover:scale-105 transition-all duration-500"
             } `}
             aria-disabled={pathname === "/"}
           >
@@ -62,7 +62,7 @@ const Navbar: React.FC<INavbar> = ({}) => {
             className={`block mt-4 lg:inline-block lg:mt-0  mr-6 ${
               pathname === "/about"
                 ? "text-gray-400 hover:cursor-not-allowed"
-                : "text-gray-200 hover:text-white hover:scale-125 transition-all duration-500"
+                : "text-gray-200 hover:text-white hover:scale-105 transition-all duration-500"
             } `}
           >
             About
@@ -72,7 +72,7 @@ const Navbar: React.FC<INavbar> = ({}) => {
             className={`block mt-4 lg:inline-block lg:mt-0  mr-6 ${
               pathname === "/projects"
                 ? "text-gray-400 hover:cursor-not-allowed"
-                : "text-gray-200 hover:text-white hover:scale-125 transition-all duration-500"
+                : "text-gray-200 hover:text-white hover:scale-105 transition-all duration-500"
             } `}
           >
             Projects

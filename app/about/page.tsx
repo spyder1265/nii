@@ -39,7 +39,7 @@ const page: React.FC<Ipage> = ({}) => {
             </div>
             <div>
               <p className=' tracking-wide'>
-                Greetings! I'm NIi_monney,a passionate 3D CG generalist and
+                Greetings! I'm Nii_monney,a passionate 3D CG generalist and
                 video editor with a love for bringing imaginative worlds to
                 life. My journey in the realm of digital creativity has been a
                 thrilling ride, fueled by a dedication to pushing the boundaries
