@@ -1,7 +1,14 @@
+const { hostname } = require("os");
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["images.unsplash.com", "picsum.photos", "i.picsum.photos"],
+    remotePatterns: [
+      { hostname: "images.unsplash.com" },
+      { hostname: "picsum.photos" },
+      { hostname: "i.picsum.photos" },
+      { hostname: "res.cloudinary.com" },
+    ],
   },
 };
 

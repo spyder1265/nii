@@ -15,7 +15,7 @@ const CCarousel: React.FC<ICarousel> = ({ dataArray }) => {
     <Carousel
       autoplay
       autoplaySpeed={5500}
-      className='h-[20rem] md:h-[30] lg:h-[]  w-[15rem] md:w-[18rem] lg:w-[31rem]'
+      className='h-[20rem] md:h-[30] lg:h-[] z-0 w-full'
     >
       {dataArray.map((data, index) => (
         <div

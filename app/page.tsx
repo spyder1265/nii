@@ -3,27 +3,28 @@ import Footer from "./components/Footer/Footer";
 import CCarousel from "./components/Carousel/Carousel";
 import { projects } from "./data";
 import { FaArrowRight } from "react-icons/fa6";
+import { cn } from "@/lib/utils";
 
 export default function Home() {
   return (
     <>
       <main className='flex min-h-screen z-40 sticky top-0 flex-col items-center'>
-        <header>
-          <div className='video_container mt-[90px] md:mt-[90px] relative'>
+        <header className='h-auto max-h-screen overflow-hidden'>
+          <div className='mt-[90px] md:mt-[90px] relative'>
             <video
               id='comp-k84t2nox_video'
-              className='K8MSra h-[400px] object-center md:h-[702px] w-full object-cover opacity-100 '
+              className='K8MSra h-full aspect-video object-cover md:h-full w-full '
               role='presentation'
               crossOrigin='anonymous'
               playsInline
               preload='auto'
               muted
               loop
-              src='/vid/cropped.mp4'
+              src='https://res.cloudinary.com/dabswbhzp/video/upload/v1715806966/nii_monney/zdnl8q8yebf8mybvqxzu.mp4'
               autoPlay
             ></video>
             <div className='absolute top-0 left-0 right-0 w-full bg-[rgba(0,0,0,0.4)]'>
-              <Navbar />
+              <Navbar fixed />
             </div>
           </div>
         </header>
@@ -38,7 +39,7 @@ export default function Home() {
             </p>
           </div>
         </section>
-        <section className='flex flex-col items-center justify-center w-full gap-5 py-8 px-4 md:px-56'>
+        <section className='flex flex-col container items-center justify-center w-full gap-5 py-8 px-4 md:px-56'>
           <div>
             <h1
               className='
@@ -49,23 +50,27 @@ export default function Home() {
               Projects
             </h1>
           </div>
-          <div className='w-full flex flex-col items-center justify-center'>
+          <div className='w-full flex flex-col  justify-center'>
             {projects.slice(0, 2).map((project, index) => (
               <div
                 key={index}
-                className='flex items-center rounded-lg md:w-full md:max-h-96 overflow-hidden my-4 shadow-lg shadow-[rgba(0,0,0,0.4)]'
+                className={cn(
+                  "flex items-center rounded-lg md:w-full min-w-[330px] md:max-h-96 overflow-hidden my-4 shadow-lg shadow-[rgba(0,0,0,0.4)]",
+                  index % 2 === 0 ? "flex-row-reverse" : "flex-row"
+                )}
               >
                 <div
-                  className={`w-1/2 ${
-                    index % 2 !== 0 ? "flex" : "hidden"
-                  } h-full max-w-[438] max-h-[369.844]`}
+                  className={`md:w-1/2 h-full max-w-[200px] md:max-w-none max-h-[369.844]`}
                 >
                   <CCarousel dataArray={project.projects} />
                 </div>
                 <div
-                  className={`w-2/4 h-full px-3 ${
-                    index % 2 === 0 ? "text-left" : "text-right"
-                  } flex flex-col justify-around gap-5`}
+                  className={cn(
+                    `w-1/2 h-full px-3 flex flex-col justify-around gap-5`,
+                    index % 2 === 0
+                      ? "text-left items-start"
+                      : "text-right items-end"
+                  )}
                 >
                   <div>
                     <h3 className='text-lg font-bold underline'>
@@ -73,20 +78,16 @@ export default function Home() {
                     </h3>
                   </div>
                   <div>
-                    <p className='text-sm font-sans'>{project.description}</p>
+                    <p className='text-sm w-[150px] h-[240px] md:h-auto font-sans'>
+                      {project.description}
+                    </p>
                   </div>
-                </div>
-                <div
-                  className={`w-1/2 ${
-                    index % 2 === 0 ? "flex" : "hidden"
-                  } h-full max-w-[438] max-h-[369.844]`}
-                >
-                  <CCarousel dataArray={project.projects} />
                 </div>
               </div>
             ))}
-            <a
-              className='
+            <div className='flex w-full justify-center'>
+              <a
+                className='
               border-2 border-[#2d323c]
               rounded-full
               inline-flex
@@ -104,10 +105,11 @@ export default function Home() {
               shadow-md
               shadow-[rgba(0,0,0,0.4)]
             '
-              href={"/projects"}
-            >
-              See All <FaArrowRight className='ml-2' />
-            </a>
+                href={"/projects"}
+              >
+                See All <FaArrowRight className='ml-2' />
+              </a>
+            </div>
           </div>
         </section>
         <footer className='w-full'>

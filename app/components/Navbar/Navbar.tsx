@@ -1,11 +1,14 @@
 "use client";
+import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 import { HiMiniBars3, HiXMark } from "react-icons/hi2";
 
-interface INavbar {}
+interface INavbar {
+  fixed?: boolean;
+}
 
-const Navbar: React.FC<INavbar> = ({}) => {
+const Navbar: React.FC<INavbar> = ({ fixed }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
 
@@ -14,7 +17,12 @@ const Navbar: React.FC<INavbar> = ({}) => {
   };
 
   return (
-    <nav className='flex items-center justify-between z-40 fixed top-0 left-0 right-0 backdrop-blur-md flex-wrap bg-transparent p-6 md:px-56'>
+    <nav
+      className={cn(
+        "flex items-center justify-between z-40  top-0 left-0 right-0 backdrop-blur-md flex-wrap bg-transparent p-6 md:px-56",
+        fixed ? "fixed" : "relative"
+      )}
+    >
       <div className='flex md:hidden items-center cursor-pointer flex-shrink-0 text-white mr-6'>
         <span
           className='font-semibold text-3xl tracking-tight cursor-pointer animate__animated logo animate__rubberBand'

@@ -15,7 +15,7 @@ export const projects = [
         image: "/img/HJVHV.png",
       },
       {
-        name: "PHJVHV",
+        name: "PHJVHV2",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
         image: "/img/trial , but we done .00_01_19_16.Still002.png",
       },
@@ -26,17 +26,17 @@ export const projects = [
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     projects: [
       {
-        name: "Final Start",
+        name: "acity",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
         image: "/img/others/1.png",
       },
       {
-        name: "PHJVHV",
+        name: "acityRender",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
         image: "/img/others/6.png",
       },
       {
-        name: "PHJVHV",
+        name: "acityWithFlag",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
         image: "/img/others/lasdddjnkds.png",
       },
