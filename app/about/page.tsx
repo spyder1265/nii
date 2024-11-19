@@ -9,7 +9,7 @@ const page: React.FC<Ipage> = ({}) => {
       <main className='flex min-h-screen z-40 sticky top-0 flex-col items-center'>
         <header>
           <div className='absolute top-0 left-0 right-0 w-full bg-[rgba(0,0,0,0.4)]'>
-            <Navbar />
+            <Navbar fixed />
           </div>
         </header>
         <section className='flex flex-col gap-3 items-center justify-around text-center py-8 pb-11 px-8 md:px-56 '>

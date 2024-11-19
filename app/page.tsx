@@ -31,7 +31,7 @@ export default function Home() {
         <section className='flex items-center text-center py-8 pb-11 px-8 md:px-56 '>
           <div>
             <p className='text-sm font-sans leading-6 tracking-normal md:w-[700px]'>
-              Greetings! I'm NIi_monney,a passionate 3D CG generalist and video
+              Greetings! I'm Nii_monney,a passionate 3D CG generalist and video
               editor with a love for bringing imaginative worlds to life. My
               journey in the realm of digital creativity has been a thrilling
               ride, fueled by a dedication to pushing the boundaries of visual
