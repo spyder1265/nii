@@ -23,47 +23,44 @@ const page: React.FC<Ipage> = ({}) => {
           <Navbar fixed />
         </header>
         <section className='flex flex-row items-start top-0'>
-          <div className='flex justify-normal w-full h-full gap-6 p-10 flex-wrap'>
+          <div className='flex justify-normal w-full h-full gap-6 p-10 flex-wrap animate__animated animate__fadeInUp ease-in '>
             {currentProjects.map((project) =>
               project.projects.map((project, index) => (
-                <div
-                  className='border border-white flex w-[339.48px] h-96 rounded-xl'
+                <Link
+                  className='border border-gray-800 flex w-[339.48px] h-96 rounded-xl hover:scale-105 hover:shadow-xl'
                   key={index}
+                  href={`/projects/${project.name}`}
                 >
                   <div className='flex w-full h-full flex-col'>
-                    <div className='h-1/2'>
+                    <div className='h-3/5'>
                       <Image
                         src={project.image}
                         width={100}
                         height={100}
                         quality={100}
                         alt='final start'
-                        className='w-full h-full overflow-hidden rounded-t-xl'
+                        className='w-full h-full overflow-hidden rounded-t-xl aspect-square'
                       />
                     </div>
                     <div className='flex flex-col gap-5 p-4'>
-                      <span className='font-semibold'>
-                        Project Name:
-                        <span className='font-normal'> {project.name}</span>
+                      <span className='truncate'>{project.name}</span>
+                      <span
+                        className={`px-2 py-1 w-fit rounded-lg ${
+                          project.platform === "Upwork"
+                            ? "bg-green-600"
+                            : project.platform === "Passion Project"
+                            ? "bg-purple-600"
+                            : project.platform === "Commercial Work"
+                            ? "bg-blue-600"
+                            : "bg-orange-500"
+                        }`}
+                      >
+                        {project.platform}
                       </span>
-                      <span className='font-semibold'>
-                        Purpose:
-                        <span className='font-normal'> {project.platform}</span>
-                      </span>
-                      <span className='font-semibold'>
-                        Date:
-                        <span className='font-normal'> {project.date}</span>
-                      </span>
-                      <span className='truncate font-semibold'>
-                        Description:
-                        <span className='font-normal'>
-                          {" "}
-                          {project.description}
-                        </span>
-                      </span>
+                      <span>{project.date}</span>
                     </div>
                   </div>
-                </div>
+                </Link>
               ))
             )}
           </div>
@@ -102,6 +99,27 @@ const page: React.FC<Ipage> = ({}) => {
             )}
           </div>
         </section> */}
+        {/* <div className='flex flex-col gap-5 p-4'>
+          <span className='font-semibold'>
+            Project Name:
+            <span className='font-normal'> {project.name}</span>
+          </span>
+          <span className='font-semibold'>
+            Purpose:
+            <span className='font-normal'> {project.platform}</span>
+          </span>
+          <span className='font-semibold'>
+            Date:
+            <span className='font-normal'> {project.date}</span>
+          </span>
+          <span className='truncate font-semibold'>
+            Description:
+            <span className='font-normal'>
+              {" "}
+              {project.description}
+            </span>
+          </span>
+        </div> */}
         <footer className='w-full flex items-center justify-center'>
           <span className='font-sans text-sm font-bold text-gray-100 opacity-50 '>
             &copy; Nii Monney 2021
