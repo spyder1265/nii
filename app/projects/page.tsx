@@ -39,7 +39,7 @@ const page: React.FC<Ipage> = ({}) => {
                         height={100}
                         quality={100}
                         alt='final start'
-                        className='w-full h-full overflow-hidden rounded-t-xl aspect-square'
+                        className='w-full h-full overflow-hidden rounded-t-xl aspect-square object-cover'
                       />
                     </div>
                     <div className='flex flex-col gap-5 p-4'>
