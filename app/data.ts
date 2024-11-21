@@ -11,6 +11,7 @@ export const projects = [
         image: "/img/final start.png",
         date: "May 24, 2023",
         platform: "Upwork",
+        ytLink: "https://www.youtube.com/embed/JJpyoy9G8WA?si=RhnsGCmYKYm33D8y",
       },
       {
         name: "PHJVHV",
@@ -19,6 +20,7 @@ export const projects = [
         image: "/img/HJVHV.png",
         date: "November 1, 2023",
         platform: "Passion Project",
+        ytLink: "https://www.youtube.com/embed/vK6OxGGj6ns?si=8ypvzMIZyQ35UjAH",
       },
       {
         name: "PHJVHV2",
@@ -27,6 +29,7 @@ export const projects = [
         image: "/img/trial , but we done .00_01_19_16.Still002.png",
         date: "February 11, 2023",
         platform: "Animation Challenge",
+        ytLink: "https://www.youtube.com/embed/iVgC--IRkdE?si=WKqqqOsiluoOasJR",
       },
     ],
   },
@@ -42,6 +45,7 @@ export const projects = [
         image: "/img/others/1.png",
         date: "March 25, 2023",
         platform: "Commercial Work",
+        ytLink: "https://www.youtube.com/embed/5F31v-xAzpk?si=hvl9r_8KR8D3lVhT",
       },
       {
         name: "acityRender",
@@ -50,6 +54,7 @@ export const projects = [
         image: "/img/others/6.png",
         date: "August 29, 2023",
         platform: "Passion Project",
+        ytLink: "https://www.youtube.com/embed/DcGziDL4Jkw?si=Tn97mqA9OkSZ-X-b",
       },
       {
         name: "acityWithFlag",
@@ -58,16 +63,17 @@ export const projects = [
         image: "/img/others/lasdddjnkds.png",
         date: "July 13, 2023",
         platform: "Upwork",
+        ytLink: "https://www.youtube.com/embed/vK6OxGGj6ns?si=8ypvzMIZyQ35UjAH",
       },
     ],
   },
 ];
 
 export const skills = [
-  "3D Modelling",
+  "Blender",
   "Texturing",
   "Animation",
-  "Blender",
-  "Adobe Premiere Pro",
+  "3D Modelling",
   "Adobe After Effects",
+  "Adobe Premiere Pro",
 ];

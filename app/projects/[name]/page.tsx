@@ -19,7 +19,8 @@ const page: React.FC<Ipage> = ({ params }) => {
     image: string;
     description: string;
     date: string;
-  }>({ name: "", image: "", description: "", date: "" });
+    ytLink: string;
+  }>({ name: "", image: "", description: "", date: "", ytLink: "" });
 
   useEffect(() => {
     const currentProject = projects.map((subproject) =>
@@ -28,7 +29,13 @@ const page: React.FC<Ipage> = ({ params }) => {
       )
     );
     setProject(
-      currentProject.at(0) || { name: "", image: "", description: "", date: "" }
+      currentProject.at(0) || {
+        name: "",
+        image: "",
+        description: "",
+        date: "",
+        ytLink: "",
+      }
     );
     console.log(currentProject);
   }, [name]);
@@ -48,7 +55,7 @@ const page: React.FC<Ipage> = ({ params }) => {
                 <br />
                 {project.description}
               </div>
-              <div>
+              <div className='border-b border-gray-700 pb-10'>
                 <div className='text-gray-400'>Skills and Deliverables:</div>
                 <ul className='list-disc pl-4'>
                   {skills.map((skill, index) => (
@@ -65,13 +72,13 @@ const page: React.FC<Ipage> = ({ params }) => {
               <iframe
                 width='760'
                 height='465'
-                src='https://www.youtube.com/embed/KqaTs7DLcOg?si=qWhCmcgtPQdIWlj8'
-                title='YouTube video player'
+                src={project.ytLink}
+                title={project.name + " Video"}
                 frameBorder='0'
                 allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
                 referrerPolicy='strict-origin-when-cross-origin'
                 allowFullScreen
-                className='rounded-xl'
+                className='rounded-xl aspect-video'
               ></iframe>
             </div>
           </div>

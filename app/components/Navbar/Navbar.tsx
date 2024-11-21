@@ -78,7 +78,7 @@ const Navbar: React.FC<INavbar> = ({ fixed }) => {
           <a
             href='/projects'
             className={`block mt-4 lg:inline-block lg:mt-0  mr-6 ${
-              pathname === "/projects"
+              pathname.includes("/projects")
                 ? "text-gray-400 hover:cursor-not-allowed"
                 : "text-gray-200 hover:text-white hover:scale-105 transition-all duration-500"
             } `}
