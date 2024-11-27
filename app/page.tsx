@@ -1,11 +1,10 @@
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
-import CCarousel from "./components/Carousel/Carousel";
 import { projects } from "./data";
 import { FaArrowRight } from "react-icons/fa6";
 import Image from "next/image";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
+import TypingAnimation from "@/components/ui/typing-animation";
 
 export default function Home() {
   return (
@@ -32,17 +31,19 @@ export default function Home() {
         </header>
         <section className='flex items-center text-center py-8 pb-11 px-8 md:px-56 '>
           <div>
-            <p className='text-sm font-sans leading-6 tracking-normal md:w-[700px]'>
-              Greetings! I'm Nii_monney,a passionate 3D CG generalist and video
+            <TypingAnimation
+              className='text-xl leading-6 tracking-normal md:w-[700px]'
+              duration={50}
+              text="Greetings! I'm Nii Monney, a passionate 3D CG generalist and video
               editor with a love for bringing imaginative worlds to life. My
               journey in the realm of digital creativity has been a thrilling
               ride, fueled by a dedication to pushing the boundaries of visual
-              storytelling.
-            </p>
+              storytelling."
+            />
           </div>
         </section>
         <section className='flex flex-col container items-center justify-center w-full gap-5 py-8 px-4 md:px-56'>
-          <div>
+          <Link href={"/projects"}>
             <h1
               className='
             text-2xl font-bold text-center
@@ -51,7 +52,7 @@ export default function Home() {
             >
               Projects
             </h1>
-          </div>
+          </Link>
           <div className='w-full flex flex-col justify-center'>
             <div className='flex justify-between'>
               {projects
