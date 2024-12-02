@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { Orbitron } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import "animate.css";
 import StyledComponentsRegistry from "../lib/AntdRegistry";
 
-const orbitron = Orbitron({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Nii Monney",
@@ -18,7 +18,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <body className={orbitron.className}>
+      <body className={inter.className}>
         <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
       </body>
     </html>

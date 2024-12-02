@@ -29,3 +29,9 @@ body {
 .logo {
   font-family: "Cybersky", inherit;
 }
+
+@font-face {
+  font-family: "Cybersky";
+  src: url("/public/fonts/Inter-Italic-VariableFont_opsz,wght.ttf")
+    format("truetype");
+}

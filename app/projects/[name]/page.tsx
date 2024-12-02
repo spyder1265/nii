@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { skills } from "@/app/data";
+import { motion } from "framer-motion";
 
 interface Ipage {
   params: {
@@ -40,16 +41,40 @@ const page: React.FC<Ipage> = ({ params }) => {
     console.log(currentProject);
   }, [name]);
 
+  const fadeInUp = {
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.5 },
+  };
+
+  const fadeInLeft = {
+    initial: { opacity: 0, x: -20 },
+    animate: { opacity: 1, x: 0 },
+    transition: { duration: 0.5 },
+  };
+
+  const fadeInRight = {
+    initial: { opacity: 0, x: 20 },
+    animate: { opacity: 1, x: 0 },
+    transition: { duration: 0.5 },
+  };
+
   return (
     <>
       <main className='flex flex-col min-h-screen w-full items-center'>
         <header className='min-h-[84px] w-full bg-[rgba(0,0,0,0.4)]'>
           <Navbar fixed />
         </header>
-        <section className='flex flex-col w-full h-full top-0 p-10 gap-10'>
+        <motion.section
+          className='flex flex-col w-full h-full top-0 p-10 gap-10'
+          {...fadeInUp}
+        >
           <h1 className='text-2xl font-bold text-white'>{project.name}</h1>
           <div className='flex flex-row max-lg:flex-col justify-between gap-10'>
-            <div className='flex flex-col gap-5 animate__animated animate__fadeInLeft lg:w-1/2'>
+            <motion.div
+              className='flex flex-col gap-5 lg:w-1/2'
+              {...fadeInLeft}
+            >
               <div className='text-justify border-b border-gray-700 pb-10'>
                 <div className='text-gray-400'>Project Description:</div>
                 <br />
@@ -74,9 +99,9 @@ const page: React.FC<Ipage> = ({ params }) => {
                 {project.date}
               </div>
               {/* end */}
-            </div>
-            <div className='lg:w-1/2'>
-              <div className='rounded-xl border border-gray-700 h-fit w-fit animate__animated animate__fadeInRight'>
+            </motion.div>
+            <motion.div className='lg:w-1/2' {...fadeInRight}>
+              <div className='rounded-xl border-2 border-[#2d323c] h-fit w-fit animate__animated animate__fadeInRight'>
                 <iframe
                   width='710'
                   height='465'
@@ -89,9 +114,9 @@ const page: React.FC<Ipage> = ({ params }) => {
                   className='rounded-xl aspect-video max-md:w-full max-lg:w-[701px] max-lg:justify-center max-lg:h-[412px] max-md:h-full max-[1024px]:h-[412px] max-[1024px]:w-fit max-[1284px]:w-fit'
                 ></iframe>
               </div>
-            </div>
+            </motion.div>
           </div>
-        </section>
+        </motion.section>
         {/* <section className='w-full container max-h-screen flex flex-col items-center'>
           <h1 className='text-2xl font-bold text-white'>{project.name}</h1>
           <Image
