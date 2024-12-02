@@ -5,6 +5,7 @@ import { FaArrowRight } from "react-icons/fa6";
 import Image from "next/image";
 import Link from "next/link";
 import TypingAnimation from "@/components/ui/typing-animation";
+import BlurFade from "@/components/ui/blur-fade";
 
 export default function Home() {
   return (
@@ -29,10 +30,10 @@ export default function Home() {
             </div>
           </div>
         </header>
-        <section className='flex items-center text-center py-8 pb-11 px-8 md:px-56 '>
-          <div>
+        <section className='flex relative top-7 items-center text-center py-8 pb-11 px-8 md:px-56 h-24'>
+          <BlurFade delay={0.25} inView>
             <TypingAnimation
-              className='text-xl leading-6 tracking-normal md:w-[700px]'
+              className='text-xl leading-6 tracking-normal md:w-[700px] font-thin'
               duration={50}
               text="Greetings! I'm Nii Monney, a passionate 3D CG generalist and video
               editor with a love for bringing imaginative worlds to life. My
@@ -40,7 +41,7 @@ export default function Home() {
               ride, fueled by a dedication to pushing the boundaries of visual
               storytelling."
             />
-          </div>
+          </BlurFade>
         </section>
         <section className='flex flex-col container items-center justify-center w-full gap-5 py-8 px-4 md:px-56'>
           <Link href={"/projects"}>
@@ -50,53 +51,55 @@ export default function Home() {
             underline
             '
             >
-              Projects
+              PROJECTS
             </h1>
           </Link>
           <div className='w-full flex flex-col justify-center'>
-            <div className='flex justify-between'>
-              {projects
-                .flatMap((project) => project.projects)
-                .sort(() => 0.5 - Math.random())
-                .slice(0, 3)
-                .map((project, index) => (
-                  <Link
-                    className='border border-gray-800 flex w-[339.48px] h-96 rounded-xl hover:scale-105 hover:shadow-xl'
-                    key={index}
-                    href={`/projects/${project.name}`}
-                  >
-                    <div className='flex w-full h-full flex-col'>
-                      <div className='h-3/5'>
-                        <Image
-                          src={project.image}
-                          width={100}
-                          height={100}
-                          quality={100}
-                          alt='final start'
-                          className='w-full h-full overflow-hidden rounded-t-xl aspect-square object-cover'
-                        />
+            <BlurFade delay={0.25} inView>
+              <div className='flex justify-between'>
+                {projects
+                  .flatMap((project) => project.projects)
+                  .sort(() => 0.5 - Math.random())
+                  .slice(0, 3)
+                  .map((project, index) => (
+                    <Link
+                      className='border-2 border-[#2d323c] flex w-[339.48px] h-96 rounded-xl hover:scale-105 hover:shadow-xl focus:outline-none transition duration-700 focus:ring-2 focus:ring-[#2d323c] focus:border-transparent text-gray-200 hover:bg-gray-500 hover:text-white shadow-md shadow-[rgba(0,0,0,0.4)]'
+                      key={index}
+                      href={`/projects/${project.name}`}
+                    >
+                      <div className='flex w-full h-full flex-col'>
+                        <div className='h-3/5'>
+                          <Image
+                            src={project.image}
+                            width={100}
+                            height={100}
+                            quality={100}
+                            alt='final start'
+                            className='w-full h-full overflow-hidden rounded-t-xl aspect-square object-cover'
+                          />
+                        </div>
+                        <div className='flex flex-col gap-5 p-4'>
+                          <span className='truncate'>{project.name}</span>
+                          <span
+                            className={`px-2 py-1 w-fit rounded-lg ${
+                              project.platform === "Upwork"
+                                ? "bg-green-600"
+                                : project.platform === "Passion Project"
+                                ? "bg-purple-600"
+                                : project.platform === "Commercial Work"
+                                ? "bg-blue-600"
+                                : "bg-orange-500"
+                            }`}
+                          >
+                            {project.platform}
+                          </span>
+                          <span>{project.date}</span>
+                        </div>
                       </div>
-                      <div className='flex flex-col gap-5 p-4'>
-                        <span className='truncate'>{project.name}</span>
-                        <span
-                          className={`px-2 py-1 w-fit rounded-lg ${
-                            project.platform === "Upwork"
-                              ? "bg-green-600"
-                              : project.platform === "Passion Project"
-                              ? "bg-purple-600"
-                              : project.platform === "Commercial Work"
-                              ? "bg-blue-600"
-                              : "bg-orange-500"
-                          }`}
-                        >
-                          {project.platform}
-                        </span>
-                        <span>{project.date}</span>
-                      </div>
-                    </div>
-                  </Link>
-                ))}
-            </div>
+                    </Link>
+                  ))}
+              </div>
+            </BlurFade>
 
             {/* {projects.slice(0, 2).map((project, index) => (
               <div
