@@ -6,6 +6,8 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { skills } from "@/app/data";
 import { motion } from "framer-motion";
+import CCarousel from "@/app/components/Carousel/Carousel";
+import { cn } from "@/lib/utils";
 
 interface Ipage {
   params: {
@@ -100,7 +102,7 @@ const page: React.FC<Ipage> = ({ params }) => {
               </div>
               {/* end */}
             </motion.div>
-            <motion.div className='lg:w-1/2' {...fadeInRight}>
+            <motion.div className='flex flex-col lg:w-1/2' {...fadeInRight}>
               <div className='rounded-xl border-2 border-[#2d323c] h-fit w-fit animate__animated animate__fadeInRight'>
                 <iframe
                   width='710'
@@ -116,6 +118,46 @@ const page: React.FC<Ipage> = ({ params }) => {
               </div>
             </motion.div>
           </div>
+          <div className='flex max-md:flex-col justify-between gap-4'>
+            <div className='border-2 border-[#2d323c] h-80 w-96 mt-10 rounded-xl max-md:w-[300px] max-md:h-40'></div>
+            <div className='border-2 border-[#2d323c] h-80 w-96 mt-10 rounded-xl max-md:w-[300px] max-md:h-40'></div>
+            <div className='border-2 border-[#2d323c] h-80 w-96 mt-10 rounded-xl max-md:w-[300px] max-md:h-40'></div>
+            <div className='border-2 border-[#2d323c] h-80 w-96 mt-10 rounded-xl max-md:w-[300px] max-md:h-40'></div>
+          </div>
+          {/* {projects.slice(0, 2).map((project, index) => (
+            <div
+              key={index}
+              className={cn(
+                "flex items-center rounded-lg md:w-full min-w-[330px] md:max-h-96 overflow-hidden my-4 shadow-lg shadow-[rgba(0,0,0,0.4)]",
+                index % 2 === 0 ? "flex-row-reverse" : "flex-row"
+              )}
+            >
+              <div
+                className={`md:w-1/2 h-full max-w-[200px] md:max-w-none max-h-[369.844]`}
+              >
+                <CCarousel dataArray={project.projects} />
+              </div>
+              <div
+                className={cn(
+                  `w-1/2 h-full px-3 flex flex-col justify-around gap-5`,
+                  index % 2 === 0
+                    ? "text-left items-start"
+                    : "text-right items-end"
+                )}
+              >
+                <div>
+                  <h3 className='text-lg font-bold underline'>
+                    {project.name}
+                  </h3>
+                </div>
+                <div>
+                  <p className='text-sm w-[150px] h-[240px] md:h-auto font-sans'>
+                    {project.description}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))} */}
         </motion.section>
         {/* <section className='w-full container max-h-screen flex flex-col items-center'>
           <h1 className='text-2xl font-bold text-white'>{project.name}</h1>

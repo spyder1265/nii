@@ -65,7 +65,7 @@ const Footer: React.FC<IFooter> = ({}) => {
               hover:text-gray-700
               '
       >
-        Send
+        <a href='mailto:#'>Send</a>
       </button>
     </form>
   );

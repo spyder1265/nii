@@ -20,6 +20,7 @@ export default function RootLayout({
     <html lang='en'>
       <body className={inter.className}>
         <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
+        {/* <script src='https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js'></script> */}
       </body>
     </html>
   );
