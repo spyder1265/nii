@@ -49,12 +49,25 @@ body {
   }
 }
 
-/* @layer base {
-  * {
-    @apply border-sidebar-border;
-  }
+input[type="file"] {
+  background-color: #374151; /* Example dark background */
+  color: #9ca3af; /* Text color */
+  border: 1px solid #4a5568; /* Border color */
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
 
-  body {
-    @apply bg-sidebar text-sidebar-foreground;
-  }
-} */
+input[type="file"]::file-selector-button {
+  background-color: #374151; /* Button background */
+  color: #fff; /* Button text */
+  padding: 8px 12px;
+  border-right: 1px;
+  border-color: #fff;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+input[type="file"]::file-selector-button:hover {
+  background-color: #4a5568; /* Hover background */
+}

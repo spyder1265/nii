@@ -123,7 +123,7 @@ const Footer: React.FC<IFooter> = ({}) => {
             </div>
 
             <div className='flex items-center justify-center w-full gap-5'>
-              <p className='text-sm font-sans'>&copy; 2021 Nii Monney</p>
+              <p className='text-sm font-sans'>&copy; 2024 Nii Monney</p>
             </div>
           </div>
         </div>

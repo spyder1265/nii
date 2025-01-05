@@ -97,12 +97,15 @@ const page: React.FC<Ipage> = ({ params }) => {
                 {project.date}
               </div>
               <div className='block max-sm:hidden'>
-                <span className='text-gray-400'>Published on:&nbsp;</span>
+                <span className='text-gray-400'>Published:&nbsp;</span>
                 {project.date}
               </div>
               {/* end */}
             </motion.div>
-            <motion.div className='flex flex-col lg:w-1/2' {...fadeInRight}>
+            <motion.div
+              className='flex flex-col lg:w-1/2 items-center'
+              {...fadeInRight}
+            >
               <div className='rounded-xl border-2 border-[#2d323c] h-fit w-fit animate__animated animate__fadeInRight'>
                 <iframe
                   width='710'
@@ -118,7 +121,7 @@ const page: React.FC<Ipage> = ({ params }) => {
               </div>
             </motion.div>
           </div>
-          <div className='flex max-md:flex-col justify-between gap-4'>
+          <div className='flex max-md:flex-col justify-between items-center gap-4'>
             <div className='border-2 border-[#2d323c] h-80 w-96 mt-10 rounded-xl max-md:w-[300px] max-md:h-40'></div>
             <div className='border-2 border-[#2d323c] h-80 w-96 mt-10 rounded-xl max-md:w-[300px] max-md:h-40'></div>
             <div className='border-2 border-[#2d323c] h-80 w-96 mt-10 rounded-xl max-md:w-[300px] max-md:h-40'></div>
