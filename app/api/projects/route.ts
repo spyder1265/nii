@@ -36,20 +36,32 @@ export async function POST(req: NextRequest) {
   }
 }
 
-export async function GET() {
+export async function GET(req: NextRequest) {
   try {
     await dbConnect();
+    const name = req.nextUrl.searchParams.get("name");
+
+    if (name) {
+      // Find a project by name (case-insensitive search)
+      const project = await Project.findOne({
+        name: { $regex: name, $options: "i" },
+      });
+      if (!project) {
+        return NextResponse.json(
+          { success: false, error: "Project not found" },
+          { status: 404 }
+        );
+      }
+      return NextResponse.json({ success: true, data: project });
+    }
+
+    // If no name parameter is provided, return all projects
     const projects = await Project.find({});
     return NextResponse.json({ success: true, data: projects });
   } catch (error) {
-    if (error instanceof Error) {
-      return NextResponse.json(
-        { success: false, error: error.message },
-        { status: 500 }
-      );
-    }
+    console.error(error);
     return NextResponse.json(
-      { success: false, error: "An unknown error occurred" },
+      { success: false, error: (error as Error).message },
       { status: 500 }
     );
   }

@@ -1,12 +1,15 @@
 "use client";
+
+import { log } from "console";
 import router from "next/router";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 export default function AddProject() {
   const [formData, setFormData] = useState({
     name: "",
     description: "",
-    images: [] as string[],
+    images: [] as String[],
     date: "",
     platform: "",
     ytLink: "",
@@ -24,38 +27,63 @@ export default function AddProject() {
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      const files = Array.from(e.target.files); // Convert FileList to Array
-      const readers = files.map((file) => {
-        const reader = new FileReader();
-        return new Promise<string>((resolve) => {
-          reader.onload = () => resolve(reader.result as string); // Convert file to Base64
+      const files = Array.from(e.target.files);
+      const base64Promises = files.map((file) => {
+        return new Promise<string>((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(reader.result as string);
+          reader.onerror = (err) => reject(err);
           reader.readAsDataURL(file);
         });
       });
 
-      Promise.all(readers).then((images) => {
-        setFormData({ ...formData, images });
-      });
+      Promise.all(base64Promises)
+        .then((base64Images) => {
+          setFormData({ ...formData, images: base64Images });
+        })
+        .catch(() => toast.error("Error reading image files"));
     }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("New Project Data:", formData);
-    const response = await fetch("/api/projects", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    });
-    const data = await response.json();
-    if (data.success) {
-      alert("Project added successfully!");
-    } else {
-      alert(`Error: ${data.error}`);
+
+    try {
+      const response = await fetch("/api/projects", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...formData,
+          skillsDeliverables: formData.skillsDeliverables
+            .split(",")
+            .map((skill) => skill.trim()), // Convert to array
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        toast.success("Project added successfully!");
+        setFormData({
+          name: "",
+          description: "",
+          images: [],
+          date: "",
+          platform: "",
+          ytLink: "",
+          skillsDeliverables: "",
+        }); // Clear the form
+        router.push("/dashboard/projects");
+      } else {
+        console.log(data.error);
+        throw new Error(data.error || "An error occurred");
+      }
+    } catch (err: any) {
+      toast.error(err.message || "Failed to add project");
+      console.log(err.message);
     }
-    router.push("/dashboard/projects");
   };
 
   return (
@@ -119,28 +147,26 @@ export default function AddProject() {
           </label>
 
           <label>
-            <span className='block text-sm font-medium'>Images</span>
+            <span className='block text-sm font-medium'>
+              Skills & Deliverables (comma-separated)
+            </span>
             <input
-              type='file'
-              name='images'
-              accept='image/*'
-              multiple
-              onChange={handleImageChange}
+              type='text'
+              name='skillsDeliverables'
+              value={formData.skillsDeliverables}
+              onChange={handleChange}
               className='mt-1 p-2 w-full border rounded bg-gray-700'
             />
           </label>
 
           <label>
-            <span className='block text-sm font-medium'>
-              Skills and Deliverables
-            </span>
-            <textarea
-              name='skillsDeliverables'
-              value={formData.skillsDeliverables}
-              onChange={handleChange}
+            <span className='block text-sm font-medium'>Project Images</span>
+            <input
+              type='file'
+              accept='image/*'
+              multiple
+              onChange={handleImageChange}
               className='mt-1 p-2 w-full border rounded bg-gray-700'
-              rows={3}
-              placeholder='E.g., React, Node.js, API design, UI/UX'
             />
           </label>
 

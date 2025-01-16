@@ -1,29 +1,26 @@
-import mongoose, { Schema, Document, model, models } from "mongoose";
+import mongoose, { Schema, model, models, Document } from "mongoose";
 
-// Define the TypeScript interface for a Project document
 export interface ProjectDocument extends Document {
   name: string;
   description: string;
-  images: string[]; // Array of Base64 strings for multiple images
-  date: string; // Month and year (e.g., "January 2025")
+  images: string[]; // Array of Base64 image strings
+  date: string;
   platform: string;
-  ytLink?: string; // Optional field
-  skillsDeliverables?: string; // Optional field
+  ytLink?: string;
+  skillsDeliverables?: string; // Array of strings for skills and deliverables
 }
 
-// Define the Mongoose schema for the Project model
 const projectSchema = new Schema<ProjectDocument>({
   name: { type: String, required: true },
   description: { type: String, required: true },
-  images: { type: [String], required: true }, // Array of Base64 image strings
-  date: { type: String, required: true }, // Month and year
+  images: { type: [String], required: true },
+  date: { type: String, required: true },
   platform: { type: String, required: true },
-  ytLink: { type: String, required: false }, // Optional
-  skillsDeliverables: { type: String, required: false }, // Optional
+  ytLink: { type: String, required: true },
+  skillsDeliverables: { type: String, required: true }, // Store as an array of strings
 });
 
-// Create or reuse the Project model
-const ProjectModel =
+const Project =
   models.Project || model<ProjectDocument>("Project", projectSchema);
 
-export default ProjectModel;
+export default Project;

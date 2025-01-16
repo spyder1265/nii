@@ -1,5 +1,5 @@
 "use client";
-import { projects, skills } from "@/app/data";
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -9,33 +9,47 @@ interface Ipage {
   };
 }
 
-const page: React.FC<Ipage> = ({ params }) => {
+interface Project {
+  _id: string;
+  name: string;
+  images: string[];
+  description: string;
+  date: string;
+  ytLink: string;
+  skillsDeliverables: string[];
+}
+
+const ProjectPage: React.FC<Ipage> = ({ params }) => {
   const name = decodeURI(params.name);
-  const [project, setProject] = useState<{
-    name: string;
-    image: string;
-    description: string;
-    date: string;
-    ytLink: string;
-  }>({ name: "", image: "", description: "", date: "", ytLink: "" });
+  const [project, setProject] = useState<Project | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const currentProject = projects.map((subproject) =>
-      subproject.projects.find(
-        (project) => project.name.toLowerCase() === name.toLowerCase()
-      )
-    );
-    setProject(
-      currentProject.at(0) || {
-        name: "",
-        image: "",
-        description: "",
-        date: "",
-        ytLink: "",
+    const fetchProject = async () => {
+      try {
+        const response = await fetch(
+          `/api/projects?name=${encodeURIComponent(name)}`
+        );
+        if (!response.ok) throw new Error("Failed to fetch project data.");
+        const data = await response.json();
+        setProject(data.data); // Assuming API returns { success: true, data: project }
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
       }
-    );
-    console.log(currentProject);
+    };
+
+    fetchProject();
   }, [name]);
+
+  if (loading) {
+    return <p>Loading project details...</p>;
+  }
+
+  if (!project) {
+    return <p>Project not found.</p>;
+  }
 
   return (
     <>
@@ -63,12 +77,16 @@ const page: React.FC<Ipage> = ({ params }) => {
               <div className='border-b border-gray-700 pb-10'>
                 <div className='text-gray-400'>Skills and Deliverables:</div>
                 <ul className='list-disc pl-4'>
-                  {skills.map((skill, index) => (
-                    <li key={index}>{skill}</li>
-                  ))}
+                  {project.skillsDeliverables.flatMap((skill, index) =>
+                    skill
+                      .split(",")
+                      .map((subSkill, subIndex) => (
+                        <li key={`${index}-${subIndex}`}>{subSkill.trim()}</li>
+                      ))
+                  )}
                 </ul>
               </div>
-              {/* Line break after "published on" for small devices */}
+
               <div className='hidden max-sm:block'>
                 <span className='text-gray-400'>Published on:&nbsp;</span>
                 <br />
@@ -78,7 +96,6 @@ const page: React.FC<Ipage> = ({ params }) => {
                 <span className='text-gray-400'>Published:&nbsp;</span>
                 {project.date}
               </div>
-              {/* end */}
             </div>
             <div className='flex flex-col lg:w-1/2 items-center'>
               <div className='rounded-xl border-2 border-[#2d323c] h-fit w-fit animate__animated animate__fadeInRight'>
@@ -96,11 +113,20 @@ const page: React.FC<Ipage> = ({ params }) => {
               </div>
             </div>
           </div>
+
           <div className='flex max-md:flex-col justify-between items-center gap-4'>
-            <div className='border-2 border-[#2d323c] h-56 w-96 mt-10 rounded-xl max-md:w-[300px] max-md:h-40'></div>
-            <div className='border-2 border-[#2d323c] h-56 w-96 mt-10 rounded-xl max-md:w-[300px] max-md:h-40'></div>
-            <div className='border-2 border-[#2d323c] h-56 w-96 mt-10 rounded-xl max-md:w-[300px] max-md:h-40'></div>
-            <div className='border-2 border-[#2d323c] h-56 w-96 mt-10 rounded-xl max-md:w-[300px] max-md:h-40'></div>
+            <div className='flex flex-wrap justify-center gap-4 mt-10'>
+              {project.images.map((image, index) => (
+                <Image
+                  width={100}
+                  height={100}
+                  key={index}
+                  src={`data:image/png;base64,${image}`}
+                  alt={`Project image ${index + 1}`}
+                  className='border-2 border-[#2d323c] rounded-xl max-w-full max-h-56'
+                />
+              ))}
+            </div>
           </div>
         </section>
       </main>
@@ -108,4 +134,4 @@ const page: React.FC<Ipage> = ({ params }) => {
   );
 };
 
-export default page;
+export default ProjectPage;
