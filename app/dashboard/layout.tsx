@@ -22,7 +22,7 @@ export default function RootLayout({
           <Sidebar />
           <Toaster position='top-right' reverseOrder={false} />
           <div className='p-4 sm:ml-64 mt-14'>
-            <div className='p-4 mt-14'>{children}</div>
+            <div className='p-4 mt-5'>{children}</div>
           </div>
         </StyledComponentsRegistry>
       </body>

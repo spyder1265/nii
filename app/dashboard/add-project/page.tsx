@@ -1,15 +1,28 @@
 "use client";
-
-import { log } from "console";
-import router from "next/router";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
+
+interface FormData {
+  name: string;
+  description: string;
+  images: string[];
+  date: string;
+  platform: string;
+  ytLink: string;
+  skillsDeliverables: string;
+}
+
+const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+const ALLOWED_FILE_TYPES = ["image/jpeg", "image/png", "image/webp"];
 
 export default function AddProject() {
-  const [formData, setFormData] = useState({
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+  const [formData, setFormData] = useState<FormData>({
     name: "",
     description: "",
-    images: [] as String[],
+    images: [],
     date: "",
     platform: "",
     ytLink: "",
@@ -17,77 +30,101 @@ export default function AddProject() {
   });
 
   const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      const files = Array.from(e.target.files);
-      const base64Promises = files.map((file) => {
-        return new Promise<string>((resolve, reject) => {
-          const reader = new FileReader();
-          reader.onload = () => resolve(reader.result as string);
-          reader.onerror = (err) => reject(err);
-          reader.readAsDataURL(file);
-        });
-      });
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files?.length) return;
 
-      Promise.all(base64Promises)
-        .then((base64Images) => {
-          setFormData({ ...formData, images: base64Images });
+    const files = Array.from(e.target.files);
+
+    // Validate files
+    const invalidFiles = files.filter(
+      (file) =>
+        !ALLOWED_FILE_TYPES.includes(file.type) || file.size > MAX_FILE_SIZE
+    );
+
+    if (invalidFiles.length) {
+      toast.error("Some files are invalid. Please check file types and sizes.");
+      return;
+    }
+
+    try {
+      setIsLoading(true);
+      const uploadedImageURLs = await Promise.all(
+        files.map(async (file) => {
+          const formData = new FormData();
+          formData.append("file", file);
+          formData.append("upload_preset", "nii_unsigned"); // Your Cloudinary upload preset
+
+          const response = await fetch(
+            "https://api.cloudinary.com/v1_1/dggc80unb/image/upload",
+            {
+              method: "POST",
+              body: formData,
+            }
+          );
+
+          if (!response.ok) {
+            throw new Error("Image upload failed");
+          }
+
+          const data = await response.json();
+          return data.secure_url; // Store Cloudinary URL
         })
-        .catch(() => toast.error("Error reading image files"));
+      );
+
+      // Append uploaded URLs to the formData.images array
+      setFormData((prev) => ({
+        ...prev,
+        images: [...prev.images, ...uploadedImageURLs],
+      }));
+      toast.success("Images uploaded successfully!");
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to upload images. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
 
     try {
       const response = await fetch("/api/projects", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...formData,
           skillsDeliverables: formData.skillsDeliverables
             .split(",")
-            .map((skill) => skill.trim()), // Convert to array
+            .map((skill) => skill.trim()),
         }),
       });
 
       const data = await response.json();
 
-      if (response.ok) {
-        toast.success("Project added successfully!");
-        setFormData({
-          name: "",
-          description: "",
-          images: [],
-          date: "",
-          platform: "",
-          ytLink: "",
-          skillsDeliverables: "",
-        }); // Clear the form
-        router.push("/dashboard/projects");
-      } else {
-        console.log(data.error);
-        throw new Error(data.error || "An error occurred");
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to add project");
       }
-    } catch (err: any) {
-      toast.error(err.message || "Failed to add project");
-      console.log(err.message);
+
+      toast.success("Project added successfully!");
+      router.push("/dashboard/projects");
+    } catch (error) {
+      console.error(error);
+      toast.error((error as Error).message || "Failed to add project");
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
-    <main className='flex justify-center p-10'>
+    <main className='flex justify-center lg:p-10'>
       <div className='w-full lg:max-w-2xl'>
         <h1 className='text-2xl font-bold mb-5'>Add New Project</h1>
         <form onSubmit={handleSubmit} className='flex flex-col gap-5'>
@@ -148,7 +185,10 @@ export default function AddProject() {
 
           <label>
             <span className='block text-sm font-medium'>
-              Skills & Deliverables (comma-separated)
+              Skills & Deliverables{" "}
+              <span className='text-sm text-gray-400 mt-1 italic'>
+                (comma-separated)
+              </span>
             </span>
             <input
               type='text'
@@ -163,18 +203,33 @@ export default function AddProject() {
             <span className='block text-sm font-medium'>Project Images</span>
             <input
               type='file'
-              accept='image/*'
+              accept={ALLOWED_FILE_TYPES.join(",")}
               multiple
               onChange={handleImageChange}
               className='mt-1 p-2 w-full border rounded bg-gray-700'
             />
+            <p className='text-sm text-gray-400 mt-1 italic'>
+              Max size: 5MB. Allowed types: JPG, PNG, WebP
+            </p>
           </label>
+
+          <div className='flex flex-wrap gap-4'>
+            {formData.images.map((url, index) => (
+              <img
+                key={index}
+                src={url}
+                alt={`Uploaded ${index + 1}`}
+                className='w-32 h-32 object-cover rounded border'
+              />
+            ))}
+          </div>
 
           <button
             type='submit'
-            className='bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600'
+            disabled={isLoading}
+            className='bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 disabled:bg-gray-400 disabled:cursor-not-allowed'
           >
-            Add Project
+            {isLoading ? "Adding Project..." : "Add Project"}
           </button>
         </form>
       </div>

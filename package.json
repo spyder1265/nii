@@ -23,6 +23,7 @@
     "animate.css": "^4.1.1",
     "antd": "^5.22.3",
     "class-variance-authority": "^0.7.1",
+    "cloudinary": "^2.5.1",
     "clsx": "^2.1.1",
     "flowbite": "^2.5.2",
     "framer-motion": "^11.12.0",

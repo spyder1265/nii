@@ -1,11 +1,29 @@
 import { NextRequest, NextResponse } from "next/server";
+import cloudinary from "@/lib/cloudinary";
 import dbConnect from "@/lib/db";
 import Project from "@/models/Projects";
 
+interface ProjectInput {
+  name: string;
+  description: string;
+  images: string[];
+  date: string;
+  platform: string;
+  ytLink: string;
+  skillsDeliverables: string[];
+}
+
 export async function POST(req: NextRequest) {
+  if (!process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME) {
+    return NextResponse.json(
+      { success: false, error: "Cloudinary configuration missing" },
+      { status: 500 }
+    );
+  }
+
   try {
     await dbConnect();
-    const body = await req.json(); // Parse request body
+    const body = await req.json();
     const {
       name,
       description,
@@ -16,19 +34,88 @@ export async function POST(req: NextRequest) {
       skillsDeliverables,
     } = body;
 
-    const newProject = await Project.create({
-      name,
-      description,
-      images, // Array of Base64 strings
-      date,
-      platform,
-      ytLink,
-      skillsDeliverables,
-    });
+    // Validate required fields
+    if (
+      !name ||
+      !description ||
+      !images ||
+      !date ||
+      !platform ||
+      !skillsDeliverables ||
+      !ytLink
+    ) {
+      return NextResponse.json(
+        { success: false, error: "Missing required fields" },
+        { status: 400 }
+      );
+    }
 
-    return NextResponse.json({ success: true, data: newProject });
+    // Validate and process skillsDeliverables
+    const processedSkills = Array.isArray(skillsDeliverables)
+      ? skillsDeliverables
+      : typeof skillsDeliverables === "string"
+      ? skillsDeliverables
+          .split(",")
+          .map((s) => s.trim())
+          .filter(Boolean)
+      : [];
+
+    if (processedSkills.length === 0) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "At least one skill or deliverable is required",
+        },
+        { status: 400 }
+      );
+    }
+
+    // Validate images array
+    if (!Array.isArray(images) || images.length === 0) {
+      return NextResponse.json(
+        { success: false, error: "At least one image is required" },
+        { status: 400 }
+      );
+    }
+
+    // Upload images using signed upload
+    try {
+      const uploadedImages = await Promise.all(
+        images.map(async (image: string) => {
+          const uploadResponse = await cloudinary.uploader.upload(image, {
+            folder: "projects",
+            resource_type: "auto",
+            cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
+            api_key: process.env.CLOUDINARY_API_KEY,
+            api_secret: process.env.CLOUDINARY_API_SECRET,
+          });
+          return uploadResponse.secure_url;
+        })
+      );
+
+      const newProject = await Project.create({
+        name,
+        description,
+        images: uploadedImages,
+        date,
+        platform,
+        ytLink,
+        skillsDeliverables: processedSkills,
+      });
+
+      return NextResponse.json({
+        success: true,
+        data: newProject,
+      });
+    } catch (uploadError) {
+      console.error("Image upload error:", uploadError);
+      return NextResponse.json(
+        { success: false, error: "Failed to upload images" },
+        { status: 500 }
+      );
+    }
   } catch (error) {
-    console.error(error);
+    console.error("Server error:", error);
     return NextResponse.json(
       { success: false, error: (error as Error).message },
       { status: 500 }
@@ -46,22 +133,30 @@ export async function GET(req: NextRequest) {
       const project = await Project.findOne({
         name: { $regex: name, $options: "i" },
       });
+
       if (!project) {
         return NextResponse.json(
           { success: false, error: "Project not found" },
           { status: 404 }
         );
       }
-      return NextResponse.json({ success: true, data: project });
+
+      return NextResponse.json({
+        success: true,
+        data: project,
+      });
     }
 
     // If no name parameter is provided, return all projects
-    const projects = await Project.find({});
-    return NextResponse.json({ success: true, data: projects });
+    const projects = await Project.find({}).sort({ createdAt: -1 });
+    return NextResponse.json({
+      success: true,
+      data: projects,
+    });
   } catch (error) {
-    console.error(error);
+    console.error("Database error:", error);
     return NextResponse.json(
-      { success: false, error: (error as Error).message },
+      { success: false, error: "Failed to fetch projects" },
       { status: 500 }
     );
   }

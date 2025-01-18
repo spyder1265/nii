@@ -107,14 +107,14 @@ export default function DashboardNav() {
                   </div>
                   <div className='max-md:hidden'>
                     <ul className='py-1'>
-                      <li>
+                      {/* <li>
                         <a
                           href='/dashboard'
                           className='block px-4 py-2 text-sm text-gray-300 hover:bg-gray-600 hover:text-white'
                         >
                           Dashboard
                         </a>
-                      </li>
+                      </li> */}
                       <li>
                         <a
                           href='/settings'
