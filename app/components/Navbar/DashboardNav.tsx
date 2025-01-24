@@ -65,7 +65,7 @@ export default function DashboardNav() {
               </svg>
             </button>
             <Link
-              href={"/dashboard"}
+              href={"/dashboard/projects"}
               className='flex items-center cursor-pointer flex-shrink-0 text-white ml-4'
             >
               <span className='font-semibold text-3xl tracking-tight'>
@@ -164,7 +164,7 @@ export default function DashboardNav() {
             <p className='text-sm text-gray-400'>nii.monney@example.com</p>
           </div>
           <ul className='mt-4 space-y-2'>
-            <li>
+            {/* <li>
               <Link
                 href='/dashboard'
                 onClick={closeSidebar}
@@ -174,7 +174,7 @@ export default function DashboardNav() {
               >
                 Dashboard
               </Link>
-            </li>
+            </li> */}
             <li>
               <Link
                 href='/dashboard/projects'

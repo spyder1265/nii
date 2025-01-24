@@ -58,10 +58,11 @@ export default function AddProject() {
         files.map(async (file) => {
           const formData = new FormData();
           formData.append("file", file);
-          formData.append("upload_preset", "nii_unsigned"); // Your Cloudinary upload preset
+          formData.append("upload_preset", "nii_unsigned");
+          formData.append("cloud_name", "dggc80unb");
 
           const response = await fetch(
-            "https://api.cloudinary.com/v1_1/dggc80unb/image/upload",
+            `https://api.cloudinary.com/v1_1/dggc80unb/image/upload`,
             {
               method: "POST",
               body: formData,
@@ -69,22 +70,23 @@ export default function AddProject() {
           );
 
           if (!response.ok) {
-            throw new Error("Image upload failed");
+            const errorText = await response.text();
+            console.error("Upload error:", errorText);
+            throw new Error(`Image upload failed: ${errorText}`);
           }
 
           const data = await response.json();
-          return data.secure_url; // Store Cloudinary URL
+          return data.secure_url;
         })
       );
 
-      // Append uploaded URLs to the formData.images array
       setFormData((prev) => ({
         ...prev,
         images: [...prev.images, ...uploadedImageURLs],
       }));
       toast.success("Images uploaded successfully!");
     } catch (error) {
-      console.error(error);
+      console.error("Upload error:", error);
       toast.error("Failed to upload images. Please try again.");
     } finally {
       setIsLoading(false);

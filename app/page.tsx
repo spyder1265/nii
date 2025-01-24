@@ -33,7 +33,7 @@ export default function Home() {
         <section className='flex relative top-7 items-center text-center py-8 pb-11 px-8 md:px-56 h-24'>
           <BlurFade delay={0.25} inView>
             <TypingAnimation
-              className='text-xl leading-6 tracking-normal md:w-[700px] font-thin'
+              className='text-xl max-md:text-sm leading-6 tracking-normal md:w-[700px] font-thin'
               duration={50}
               text="Greetings! I'm Nii Monney, a passionate 3D CG generalist and video
               editor with a love for bringing imaginative worlds to life. My
@@ -47,7 +47,7 @@ export default function Home() {
           <Link href={"/projects"}>
             <h1
               className='
-            text-2xl font-bold text-center
+            text-2xl max-md:text-xl font-bold text-center
             underline
             '
             >
@@ -56,7 +56,7 @@ export default function Home() {
           </Link>
           <div className='w-full flex flex-col justify-center'>
             <BlurFade delay={0.25} inView>
-              <div className='flex justify-between'>
+              <div className='flex max-md:flex-col gap-8 justify-between'>
                 {projects
                   .flatMap((project) => project.projects)
                   .sort(() => 0.5 - Math.random())

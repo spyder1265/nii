@@ -14,7 +14,7 @@ export default function Sidebar() {
   const pathname = usePathname();
 
   const links = [
-    { href: "/dashboard", label: "Dashboard", icon: FaTachometerAlt },
+    // { href: "/dashboard", label: "Dashboard", icon: FaTachometerAlt },
     { href: "/dashboard/projects", label: "Projects", icon: FaPaintBrush },
     {
       href: "/dashboard/add-project",
