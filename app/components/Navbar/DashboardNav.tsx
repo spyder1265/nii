@@ -1,8 +1,16 @@
+"use client";
+
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation"; // Import to access current pathname
+import { useSession } from "next-auth/react";
+import SignOutButton from "../SignOutButton";
 
 export default function DashboardNav() {
+  const { data: session } = useSession();
+  const user = session?.user;
+
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
@@ -65,7 +73,7 @@ export default function DashboardNav() {
               </svg>
             </button>
             <Link
-              href={"/dashboard/projects"}
+              href={"/dashboard"}
               className='flex items-center cursor-pointer flex-shrink-0 text-white ml-4'
             >
               <span className='font-semibold text-3xl tracking-tight'>
@@ -86,11 +94,14 @@ export default function DashboardNav() {
                   onClick={toggleDropdown}
                 >
                   <span className='sr-only'>Open user menu</span>
-                  <img
-                    className='w-8 h-8 rounded-full'
-                    src='/img/DSC_0075.png'
-                    alt='user photo'
-                  />
+                  <div className='w-8 h-8 relative rounded-full overflow-hidden'>
+                    <Image
+                      src={user?.image || "/img/default-avatar.png"}
+                      alt={user?.name || "Profile"}
+                      fill
+                      className='object-cover'
+                    />
+                  </div>
                 </button>
               </div>
               {dropdownOpen && (
@@ -100,21 +111,19 @@ export default function DashboardNav() {
                   id='dropdown-user'
                 >
                   <div className='px-4 py-3'>
-                    <p className='text-sm text-white'>Nii Monney</p>
-                    <p className='text-sm font-medium truncate text-gray-300'>
-                      nii.monney@example.com
-                    </p>
+                    <p className='text-sm text-gray-300'>{user?.name}</p>
+                    <p className='text-sm text-gray-300'>{user?.email}</p>
                   </div>
                   <div className='max-md:hidden'>
                     <ul className='py-1'>
-                      {/* <li>
+                      <li>
                         <a
                           href='/dashboard'
                           className='block px-4 py-2 text-sm text-gray-300 hover:bg-gray-600 hover:text-white'
                         >
                           Dashboard
                         </a>
-                      </li> */}
+                      </li>
                       <li>
                         <a
                           href='/settings'
@@ -124,12 +133,13 @@ export default function DashboardNav() {
                         </a>
                       </li>
                       <li>
-                        <a
+                        {/* <a
                           href='/signout'
                           className='block px-4 py-2 text-sm text-gray-300 hover:bg-gray-600 hover:text-white'
                         >
                           Sign out
-                        </a>
+                        </a> */}
+                        <SignOutButton />
                       </li>
                     </ul>
                   </div>
@@ -160,11 +170,11 @@ export default function DashboardNav() {
           }`}
         >
           <div className='p-4'>
-            <h2 className='text-lg font-semibold text-white'>Nii Monney</h2>
-            <p className='text-sm text-gray-400'>nii.monney@example.com</p>
+            <h2 className='text-lg font-semibold text-white'>{user?.name}</h2>
+            <p className='text-sm text-gray-400'>{user?.email}</p>
           </div>
           <ul className='mt-4 space-y-2'>
-            {/* <li>
+            <li>
               <Link
                 href='/dashboard'
                 onClick={closeSidebar}
@@ -174,7 +184,7 @@ export default function DashboardNav() {
               >
                 Dashboard
               </Link>
-            </li> */}
+            </li>
             <li>
               <Link
                 href='/dashboard/projects'
@@ -209,7 +219,7 @@ export default function DashboardNav() {
               </Link>
             </li>
             <li>
-              <Link
+              {/* <Link
                 href='/signout'
                 onClick={closeSidebar}
                 className={`block px-4 py-2 text-sm hover:bg-gray-700 hover:text-white ${isActive(
@@ -217,9 +227,12 @@ export default function DashboardNav() {
                 )}`}
               >
                 Sign Out
-              </Link>
+              </Link> */}
             </li>
           </ul>
+          <div>
+            <SignOutButton />
+          </div>
         </div>
       </div>
     </main>

@@ -164,13 +164,13 @@ export default function ProjectPage({ params }: IPage) {
             <div className='border-b border-gray-700 pb-10'>
               <div className='text-gray-400'>Skills and Deliverables:</div>
               <ul className='list-disc pl-4 mt-2'>
-                {project.skillsDeliverables.flatMap((skill, index) =>
+                {project.skillsDeliverables?.flatMap((skill, index) =>
                   skill.split(",").map((subSkill, subIndex) => (
                     <li key={`${index}-${subIndex}`} className='mt-1'>
                       {subSkill.trim()}
                     </li>
                   ))
-                )}
+                ) || null}
               </ul>
             </div>
 

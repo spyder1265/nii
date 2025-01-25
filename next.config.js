@@ -9,6 +9,7 @@ const nextConfig = {
       { hostname: "i.picsum.photos" },
       { hostname: "res.cloudinary.com" },
     ],
+    domains: ["lh3.googleusercontent.com"], // Allow Google profile images
   },
 };
 

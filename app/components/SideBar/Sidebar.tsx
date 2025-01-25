@@ -9,19 +9,20 @@ import {
   FaSignOutAlt,
 } from "react-icons/fa";
 import Link from "next/link";
+import SignOutButton from "../SignOutButton";
 
 export default function Sidebar() {
   const pathname = usePathname();
 
   const links = [
-    // { href: "/dashboard", label: "Dashboard", icon: FaTachometerAlt },
+    { href: "/dashboard", label: "Dashboard", icon: FaTachometerAlt },
     { href: "/dashboard/projects", label: "Projects", icon: FaPaintBrush },
     {
       href: "/dashboard/add-project",
       label: "Add Project",
       icon: FaFolderPlus,
     },
-    { href: "/signup", label: "Sign Out", icon: FaSignOutAlt },
+    // { href: "/signup", label: "Sign Out", icon: FaSignOutAlt },
   ];
 
   return (
@@ -30,7 +31,7 @@ export default function Sidebar() {
       className='fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full sm:translate-x-0 bg-gray-800 border-gray-700'
       aria-label='Sidebar'
     >
-      <div className='h-full px-3 pb-4 overflow-y-auto bg-gray-800'>
+      <div className='flex flex-col justify-between h-full px-3 pb-4 overflow-y-auto bg-gray-800'>
         <ul className='space-y-2 font-medium'>
           {links.map(({ href, label, icon: Icon }) => (
             <li key={href}>
@@ -54,6 +55,9 @@ export default function Sidebar() {
             </li>
           ))}
         </ul>
+        <div>
+          <SignOutButton />
+        </div>
       </div>
     </main>
   );

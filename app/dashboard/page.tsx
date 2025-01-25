@@ -1,67 +1,63 @@
-"use client";
-import Link from "next/link";
-
-export default function Dashboard() {
-  const blogPosts = [
-    {
-      title: "Understanding React",
-      description: "An overview of React concepts",
-      link: "/blog/understanding-react",
-    },
-    {
-      title: "CSS Flexbox",
-      description: "Mastering the CSS Flexbox layout",
-      link: "/blog/css-flexbox",
-    },
-    {
-      title: "Next.js for Beginners",
-      description: "Getting started with Next.js",
-      link: "/blog/nextjs-beginners",
-    },
-  ];
+export default async function Dashboard() {
   return (
-    <main>
-      <section className='mb-8'>
-        <h2 className='text-2xl font-semibold'>Overview</h2>
-        <div className='mt-4 grid grid-cols-2 gap-4'>
-          <div className='bg-gray-800 p-4 rounded-lg'>
-            <h3 className='text-white'>Projects Completed</h3>
-            <p className='text-white text-4xl'>15</p>
-          </div>
-          <div className='bg-gray-800 p-4 rounded-lg'>
-            <h3 className='text-white'>Skills Mastered</h3>
-            <p className='text-white text-4xl'>8</p>
-          </div>
-          <div className='bg-gray-800 p-4 rounded-lg'>
-            <h3 className='text-white'>Client Testimonials</h3>
-            <p className='text-white text-4xl'>10+</p>
-          </div>
-          <div className='bg-gray-800 p-4 rounded-lg'>
-            <h3 className='text-white'>Blog Posts</h3>
-            <p className='text-white text-4xl'>5</p>
-          </div>
-        </div>
-      </section>
-      <section className='mb-8'>
-        <h2 className='text-2xl font-semibold'>Latest Blog Posts</h2>
-        <div className='mt-4 space-y-4'>
-          {blogPosts.map((post, index) => (
-            <div
-              key={index}
-              className='bg-gray-800 p-4 rounded-lg hover:bg-gray-700'
-            >
-              <h3 className='text-xl text-white'>{post.title}</h3>
-              <p className='text-gray-400'>{post.description}</p>
-              <Link
-                href={post.link}
-                className='text-blue-400 hover:underline mt-2 block'
-              >
-                Read More
-              </Link>
-            </div>
-          ))}
-        </div>
-      </section>
-    </main>
+    <div className='min-h-fit'>
+      <h1 className='text-3xl font-bold mb-8 text-gray-100'>Dashboard</h1>
+
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+        <DashboardCard
+          title='Projects'
+          description='Manage and view your projects'
+          href='/dashboard/projects'
+          icon='📁'
+        />
+        <DashboardCard
+          title='Add Project'
+          description='Create a new project entry'
+          href='/dashboard/projects/add-project'
+          icon='➕'
+        />
+        <DashboardCard
+          title='Analytics'
+          description='View project insights and performance'
+          href='/dashboard/analytics'
+          icon='📊'
+        />
+        <DashboardCard
+          title='Settings'
+          description='Configure your account preferences'
+          href='/dashboard/settings'
+          icon='⚙️'
+        />
+        <DashboardCard
+          title='Profile'
+          description='Update your personal information'
+          href='/dashboard/profile'
+          icon='👤'
+        />
+      </div>
+    </div>
+  );
+}
+
+interface DashboardCardProps {
+  title: string;
+  description: string;
+  href: string;
+  icon: string;
+}
+
+function DashboardCard({ title, description, href, icon }: DashboardCardProps) {
+  return (
+    <a
+      href={href}
+      className='bg-white shadow-md rounded-lg p-6 
+       hover:shadow-xl transition-all duration-300 
+       transform hover:-translate-y-2 
+       flex flex-col items-start'
+    >
+      <div className='text-4xl mb-4'>{icon}</div>
+      <h2 className='text-xl font-semibold mb-2 text-gray-800'>{title}</h2>
+      <p className='text-gray-500'>{description}</p>
+    </a>
   );
 }

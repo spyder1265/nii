@@ -125,7 +125,7 @@ const Footer: React.FC<IFooter> = ({}) => {
 
             <div className='flex max-md:flex-col items-center justify-center w-full gap-5'>
               <p className='text-sm font-sans'>&copy; 2024 Nii Monney</p>
-              <Link href={"/dashboard/projects"} className='text-sm font-sans'>
+              <Link href={"/dashboard"} className='text-sm font-sans'>
                 Dashboard
               </Link>
             </div>

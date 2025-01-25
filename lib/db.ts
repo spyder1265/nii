@@ -1,26 +1,11 @@
-import mongoose from "mongoose";
+import { PrismaClient } from "@prisma/client";
 
-const MONGODB_URI = process.env.MONGODB_URI as string; // This will come from .env.local
-
-// Global variable to cache the database connection during hot reloading in development
-let cached = global.mongoose;
-
-if (!cached) {
-  cached = global.mongoose = { conn: null, promise: null };
+declare global {
+  var prisma: PrismaClient | undefined;
 }
 
-async function connectToDatabase() {
-  if (cached.conn) {
-    return cached.conn;
-  }
+const prisma = global.prisma || new PrismaClient();
 
-  if (!cached.promise) {
-    cached.promise = mongoose.connect(MONGODB_URI).then((mongooseInstance) => {
-      return mongooseInstance;
-    });
-  }
-  cached.conn = await cached.promise;
-  return cached.conn;
-}
+if (process.env.NODE_ENV !== "production") global.prisma = prisma;
 
-export default connectToDatabase;
+export default prisma;
