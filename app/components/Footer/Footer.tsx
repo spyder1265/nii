@@ -7,6 +7,7 @@ import {
 } from "react-icons/fa6";
 import { FaYoutube } from "react-icons/fa";
 import { SiUpwork } from "react-icons/si";
+import Link from "next/link";
 interface IFooter {}
 
 const Footer: React.FC<IFooter> = ({}) => {
@@ -65,7 +66,7 @@ const Footer: React.FC<IFooter> = ({}) => {
               hover:text-gray-700
               '
       >
-        Send
+        <a href='mailto:#'>Send</a>
       </button>
     </form>
   );
@@ -122,8 +123,11 @@ const Footer: React.FC<IFooter> = ({}) => {
               </a>
             </div>
 
-            <div className='flex items-center justify-center w-full gap-5'>
-              <p className='text-sm font-sans'>&copy; 2021 Nii Monney</p>
+            <div className='flex max-md:flex-col items-center justify-center w-full gap-5'>
+              <p className='text-sm font-sans'>&copy; 2024 Nii Monney</p>
+              <Link href={"/dashboard"} className='text-sm font-sans'>
+                Dashboard
+              </Link>
             </div>
           </div>
         </div>
