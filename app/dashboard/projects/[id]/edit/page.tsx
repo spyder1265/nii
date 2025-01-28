@@ -5,15 +5,25 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 
-interface IEditPage {
+interface PageProps {
   params: {
-    name: string;
+    id: string;
   };
 }
 
-const EditPage: React.FC<IEditPage> = ({ params }) => {
+interface Project {
+  id: string;
+  name: string;
+  description: string;
+  date: string;
+  ytLink: string;
+  platform: string;
+  skillsDeliverables: string[];
+  images: string[];
+}
+
+const EditProjectPage: React.FC<PageProps> = ({ params }) => {
   const router = useRouter();
-  const name = decodeURIComponent(params.name);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -33,9 +43,7 @@ const EditPage: React.FC<IEditPage> = ({ params }) => {
   useEffect(() => {
     const fetchProject = async () => {
       try {
-        const res = await fetch(
-          `/api/projects?name=${encodeURIComponent(name)}`
-        );
+        const res = await fetch(`/api/projects?id=${params.id}`);
         if (!res.ok) {
           throw new Error("Failed to fetch project data");
         }
@@ -67,7 +75,7 @@ const EditPage: React.FC<IEditPage> = ({ params }) => {
     };
 
     fetchProject();
-  }, [name]);
+  }, [params.id]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -128,13 +136,13 @@ const EditPage: React.FC<IEditPage> = ({ params }) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          originalName: name,
+          id: params.id,
           ...formData,
           skillsDeliverables: formData.skillsDeliverables
             .split(",")
             .map((s) => s.trim())
             .filter(Boolean),
-          newImages: base64Images, // Add new images to be uploaded
+          newImages: base64Images,
         }),
       });
 
@@ -143,7 +151,7 @@ const EditPage: React.FC<IEditPage> = ({ params }) => {
         throw new Error(errorData.error || "Failed to update project");
       }
 
-      router.push(`/dashboard/projects/${encodeURIComponent(formData.name)}`);
+      router.push(`/dashboard/projects/${params.id}`);
       router.refresh();
     } catch (error) {
       console.error("Error updating project:", error);
@@ -159,7 +167,6 @@ const EditPage: React.FC<IEditPage> = ({ params }) => {
     return (
       <main className='flex justify-center items-center min-h-screen'>
         <div className='animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-blue-500'></div>
-        {/* <p className='ml-4 text-lg'>Loading project details...</p> */}
       </main>
     );
   }
@@ -168,7 +175,7 @@ const EditPage: React.FC<IEditPage> = ({ params }) => {
     <main className='container mx-auto p-5'>
       <div className='mb-6 flex justify-between items-center'>
         <Link
-          href={`/dashboard/projects/${encodeURIComponent(name)}`}
+          href={`/dashboard/projects/${params.id}`}
           className='text-blue-400 hover:underline'
         >
           &larr;&nbsp;Back to Project
@@ -176,6 +183,10 @@ const EditPage: React.FC<IEditPage> = ({ params }) => {
         <h1 className='text-2xl font-bold'>Edit {formData.name}</h1>
         <div className='w-[100px]'></div> {/* Spacer for centering */}
       </div>
+
+      {error && (
+        <div className='mb-4 p-4 bg-red-500 text-white rounded'>{error}</div>
+      )}
 
       <form
         onSubmit={handleSubmit}
@@ -248,101 +259,88 @@ const EditPage: React.FC<IEditPage> = ({ params }) => {
               (comma-separated)
             </span>
           </span>
-          <input
-            type='text'
+          <textarea
             name='skillsDeliverables'
             value={formData.skillsDeliverables}
             onChange={handleChange}
             className='mt-1 p-2 w-full border rounded bg-gray-700'
+            rows={3}
             required
           />
         </label>
 
-        <div className='space-y-4'>
-          <label className='block'>
-            <span className='block text-sm font-medium mb-2'>
-              Project Images
-            </span>
-
-            {/* Existing Images */}
-            {formData.images.length > 0 && (
-              <div className='grid grid-cols-2 md:grid-cols-3 gap-4 mb-4'>
-                {formData.images.map((image, index) => (
-                  <div key={index} className='relative group'>
-                    <div className='aspect-video relative'>
-                      <Image
-                        src={image}
-                        alt={`Project image ${index + 1}`}
-                        fill
-                        className='object-cover rounded-lg'
-                      />
-                    </div>
-                    <button
-                      type='button'
-                      onClick={() => removeExistingImage(index)}
-                      className='absolute top-2 right-2 bg-red-500 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity'
-                    >
-                      ✕
-                    </button>
-                  </div>
-                ))}
+        <div>
+          <span className='block text-sm font-medium mb-2'>Current Images</span>
+          <div className='grid grid-cols-3 gap-4'>
+            {formData.images.map((url, index) => (
+              <div
+                key={index}
+                className='relative border-2 border-[#2d323c] rounded-xl overflow-hidden aspect-video group'
+              >
+                <Image
+                  src={url}
+                  alt={`Project image ${index + 1}`}
+                  fill
+                  className='object-cover'
+                />
+                <button
+                  type='button'
+                  onClick={() => removeExistingImage(index)}
+                  className='flex absolute top-2 right-2 bg-red-500 items-center justify-center text-white h-5 w-5 p-3 rounded-full opacity-0 group-hover:opacity-100 transition-opacity'
+                >
+                  ✕
+                </button>
               </div>
-            )}
-
-            {/* New Image Previews */}
-            {previewUrls.length > 0 && (
-              <div className='grid grid-cols-2 md:grid-cols-3 gap-4 mb-4'>
-                {previewUrls.map((url, index) => (
-                  <div key={index} className='relative group'>
-                    <div className='aspect-video relative'>
-                      <Image
-                        src={url}
-                        alt={`New image ${index + 1}`}
-                        fill
-                        className='object-cover rounded-lg'
-                      />
-                    </div>
-                    <button
-                      type='button'
-                      onClick={() => removeNewImage(index)}
-                      className='absolute top-2 right-2 bg-red-500 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity'
-                    >
-                      ✕
-                    </button>
-                  </div>
-                ))}
-              </div>
-            )}
-
-            {/* Image Upload Input */}
-            <div className='mt-2'>
-              <input
-                type='file'
-                onChange={handleImageChange}
-                accept='image/*'
-                multiple
-                className='block w-full text-sm text-gray-500
-                  file:mr-4 file:py-2 file:px-4
-                  file:rounded-full file:border-0
-                  file:text-sm file:font-semibold
-                  file:bg-blue-50 file:text-blue-700
-                  hover:file:bg-blue-100'
-              />
-            </div>
-          </label>
+            ))}
+          </div>
         </div>
 
-        <div className='flex gap-4 justify-end mt-4'>
+        <div>
+          <span className='block text-sm font-medium mb-2'>Add New Images</span>
+          <input
+            type='file'
+            onChange={handleImageChange}
+            multiple
+            accept='image/*'
+            className='mt-1'
+          />
+          {previewUrls.length > 0 && (
+            <div className='mt-4 grid grid-cols-3 gap-4'>
+              {previewUrls.map((url, index) => (
+                <div
+                  key={index}
+                  className='relative border-2 border-[#2d323c] rounded-xl overflow-hidden aspect-video group'
+                >
+                  <Image
+                    src={url}
+                    alt={`New image ${index + 1}`}
+                    fill
+                    className='object-cover'
+                  />
+                  <button
+                    type='button'
+                    onClick={() => removeNewImage(index)}
+                    className='flex absolute top-2 right-2 bg-red-500 items-center justify-center text-white h-5 w-5 p-3 rounded-full opacity-0 group-hover:opacity-100 transition-opacity'
+                  >
+                    ✕
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <div className='flex justify-end gap-4 mt-6'>
           <Link
-            href={`/dashboard/projects/${encodeURIComponent(name)}`}
-            className='px-4 py-2 border rounded hover:bg-gray-100'
+            href={`/dashboard/projects/${params.id}`}
+            className='px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-700 transition-colors'
           >
             Cancel
           </Link>
           <button
             type='submit'
-            className='bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 disabled:bg-gray-400'
             disabled={isSubmitting}
+            className='px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed'
           >
             {isSubmitting ? "Saving..." : "Save Changes"}
           </button>
@@ -352,4 +350,4 @@ const EditPage: React.FC<IEditPage> = ({ params }) => {
   );
 };
 
-export default EditPage;
+export default EditProjectPage;

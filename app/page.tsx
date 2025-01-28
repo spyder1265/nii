@@ -1,13 +1,67 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
-import { projects } from "./data";
 import { FaArrowRight } from "react-icons/fa6";
 import Image from "next/image";
 import Link from "next/link";
 import TypingAnimation from "@/components/ui/typing-animation";
 import BlurFade from "@/components/ui/blur-fade";
 
+interface Project {
+  id: string;
+  name: string;
+  platform: string;
+  date: string;
+  images: string[];
+}
+
 export default function Home() {
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const response = await fetch("/api/projects");
+        const data = await response.json();
+
+        if (!data.success) {
+          throw new Error(data.error || "Failed to fetch projects");
+        }
+
+        setProjects(data.data);
+        setIsLoading(false);
+      } catch (err) {
+        setError(
+          err instanceof Error ? err.message : "Failed to fetch projects"
+        );
+        setIsLoading(false);
+      }
+    };
+
+    fetchProjects();
+  }, []);
+
+  const ProjectCardSkeleton = () => {
+    return (
+      <div className='border-2 border-[#2d323c] flex w-[339.48px] h-96 rounded-xl shadow-md shadow-[rgba(0,0,0,0.4)]'>
+        <div className='flex w-full h-full flex-col'>
+          <div className='h-3/5'>
+            <div className='w-full h-full rounded-t-xl bg-gray-700 ' />
+          </div>
+          <div className='flex flex-col gap-5 p-4'>
+            <div className='h-6 w-3/4 bg-gray-700 rounded animate-pulse' />
+            <div className='h-8 w-1/3 bg-gray-700 rounded animate-pulse' />
+            <div className='h-6 w-1/2 bg-gray-700 rounded animate-pulse' />
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <>
       <main className='flex min-h-screen z-40 sticky top-0 flex-col items-center'>
@@ -15,7 +69,7 @@ export default function Home() {
           <div className='mt-[90px] md:mt-[90px] relative'>
             <video
               id='comp-k84t2nox_video'
-              className='K8MSra h-full aspect-video object-cover md:h-full w-full '
+              className='K8MSra h-full aspect-video object-cover md:h-full w-full'
               role='presentation'
               crossOrigin='anonymous'
               playsInline
@@ -35,130 +89,89 @@ export default function Home() {
             <TypingAnimation
               className='text-xl max-md:text-sm leading-6 tracking-normal md:w-[700px] font-thin'
               duration={50}
-              text="Greetings! I'm Nii Monney, a passionate 3D CG generalist and video
-              editor with a love for bringing imaginative worlds to life. My
-              journey in the realm of digital creativity has been a thrilling
-              ride, fueled by a dedication to pushing the boundaries of visual
-              storytelling."
+              text="Greetings! I'm Nii Monney, a passionate 3D CG generalist and video editor with a love for bringing imaginative worlds to life. My journey in the realm of digital creativity has been a thrilling ride, fueled by a dedication to pushing the boundaries of visual storytelling."
             />
           </BlurFade>
         </section>
         <section className='flex flex-col container items-center justify-center w-full gap-5 py-8 px-4 md:px-56'>
           <Link href={"/projects"}>
-            <h1
-              className='
-            text-2xl max-md:text-xl font-bold text-center
-            underline
-            '
-            >
+            <h1 className='text-2xl max-md:text-xl font-bold text-center underline'>
               PROJECTS
             </h1>
           </Link>
           <div className='w-full flex flex-col justify-center'>
             <BlurFade delay={0.25} inView>
-              <div className='flex max-md:flex-col gap-8 justify-between'>
-                {projects
-                  .flatMap((project) => project.projects)
-                  .sort(() => 0.5 - Math.random())
-                  .slice(0, 3)
-                  .map((project, index) => (
-                    <Link
-                      className='border-2 border-[#2d323c] flex w-[339.48px] h-96 rounded-xl hover:scale-105 hover:shadow-xl focus:outline-none transition duration-700 focus:ring-2 focus:ring-[#2d323c] focus:border-transparent text-gray-200 hover:bg-gray-500 hover:text-white shadow-md shadow-[rgba(0,0,0,0.4)]'
-                      key={index}
-                      href={`/projects/${project.name}`}
-                    >
-                      <div className='flex w-full h-full flex-col'>
-                        <div className='h-3/5'>
-                          <Image
-                            src={project.image}
-                            width={100}
-                            height={100}
-                            quality={100}
-                            alt='final start'
-                            className='w-full h-full overflow-hidden rounded-t-xl aspect-square object-cover'
-                          />
+              <div className='flex max-md:flex-col gap-8 justify-center'>
+                {isLoading ? (
+                  <div className='w-full text-center py-8'>
+                    <ProjectCardSkeleton />
+                    <ProjectCardSkeleton />
+                    <ProjectCardSkeleton />
+                  </div>
+                ) : error ? (
+                  <div className='w-full text-center text-red-500 py-8'>
+                    {error}
+                  </div>
+                ) : (
+                  projects
+                    .sort(() => 0.5 - Math.random())
+                    .slice(0, 3)
+                    .map((project) => (
+                      <Link
+                        className='border-2 border-[#2d323c] flex w-[339.48px] h-96 rounded-xl hover:scale-105 hover:shadow-xl focus:outline-none transition duration-700 focus:ring-2 focus:ring-[#2d323c] focus:border-transparent text-gray-200 hover:bg-gray-500 hover:text-white shadow-md shadow-[rgba(0,0,0,0.4)]'
+                        key={project.id}
+                        href={`/projects/${project.id}`}
+                      >
+                        <div className='flex w-full h-full flex-col'>
+                          <div className='h-3/5'>
+                            <Image
+                              src={project.images[0] || "/placeholder.jpg"}
+                              width={100}
+                              height={100}
+                              quality={100}
+                              alt={project.name}
+                              className='w-full h-full overflow-hidden rounded-t-xl aspect-square object-cover'
+                            />
+                          </div>
+                          <div className='flex flex-col gap-5 p-4'>
+                            <span className='truncate'>{project.name}</span>
+                            <span
+                              className={`px-2 py-1 w-fit rounded-lg ${
+                                project.platform === "Upwork"
+                                  ? "bg-green-600"
+                                  : project.platform === "Passion Project"
+                                  ? "bg-purple-600"
+                                  : project.platform === "Commercial Work"
+                                  ? "bg-blue-600"
+                                  : "bg-orange-500"
+                              }`}
+                            >
+                              {project.platform}
+                            </span>
+                            {/* <span>{project.date}</span> */}
+                            <span>
+                              {project.date
+                                ? new Date(project.date).toLocaleDateString(
+                                    "en-US",
+                                    { year: "numeric", month: "long" }
+                                  )
+                                : "Unknown Date"}
+                            </span>
+                          </div>
                         </div>
-                        <div className='flex flex-col gap-5 p-4'>
-                          <span className='truncate'>{project.name}</span>
-                          <span
-                            className={`px-2 py-1 w-fit rounded-lg ${
-                              project.platform === "Upwork"
-                                ? "bg-green-600"
-                                : project.platform === "Passion Project"
-                                ? "bg-purple-600"
-                                : project.platform === "Commercial Work"
-                                ? "bg-blue-600"
-                                : "bg-orange-500"
-                            }`}
-                          >
-                            {project.platform}
-                          </span>
-                          <span>{project.date}</span>
-                        </div>
-                      </div>
-                    </Link>
-                  ))}
+                      </Link>
+                    ))
+                )}
               </div>
             </BlurFade>
 
-            {/* {projects.slice(0, 2).map((project, index) => (
-              <div
-                key={index}
-                className={cn(
-                  "flex items-center rounded-lg md:w-full min-w-[330px] md:max-h-96 overflow-hidden my-4 shadow-lg shadow-[rgba(0,0,0,0.4)]",
-                  index % 2 === 0 ? "flex-row-reverse" : "flex-row"
-                )}
-              >
-                <div
-                  className={`md:w-1/2 h-full max-w-[200px] md:max-w-none max-h-[369.844]`}
-                >
-                  <CCarousel dataArray={project.projects} />
-                </div>
-                <div
-                  className={cn(
-                    `w-1/2 h-full px-3 flex flex-col justify-around gap-5`,
-                    index % 2 === 0
-                      ? "text-left items-start"
-                      : "text-right items-end"
-                  )}
-                >
-                  <div>
-                    <h3 className='text-lg font-bold underline'>
-                      {project.name}
-                    </h3>
-                  </div>
-                  <div>
-                    <p className='text-sm w-[150px] h-[240px] md:h-auto font-sans'>
-                      {project.description}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))} */}
             <div className='flex w-full justify-center'>
-              <a
-                className='
-              border-2 border-[#2d323c]
-              rounded-full
-              inline-flex
-              items-center
-              py-2 px-4
-              my-6
-              focus:outline-none
-              transition
-              duration-700
-              focus:ring-2 focus:ring-[#2d323c]
-              focus:border-transparent
-              text-gray-200
-              hover:bg-gray-300
-              hover:text-gray-700
-              shadow-md
-              shadow-[rgba(0,0,0,0.4)]
-            '
-                href={"/projects"}
+              <Link
+                className='border-2 border-[#2d323c] rounded-full inline-flex items-center py-2 px-4 my-6 focus:outline-none transition duration-700 focus:ring-2 focus:ring-[#2d323c] focus:border-transparent text-gray-200 hover:bg-gray-300 hover:text-gray-700 shadow-md shadow-[rgba(0,0,0,0.4)]'
+                href='/projects'
               >
                 See All <FaArrowRight className='ml-2' />
-              </a>
+              </Link>
             </div>
           </div>
         </section>

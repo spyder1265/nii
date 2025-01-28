@@ -1,47 +1,52 @@
 "use client";
 import Navbar from "@/app/components/Navbar/Navbar";
-import { projects } from "@/app/data";
 import Image from "next/image";
-import Link from "next/link";
 import { useEffect, useState } from "react";
-import { skills } from "@/app/data";
 import { motion } from "framer-motion";
-import CCarousel from "@/app/components/Carousel/Carousel";
 import { cn } from "@/lib/utils";
 
-interface Ipage {
+interface Project {
+  id: string;
+  name: string;
+  description: string;
+  images: string[];
+  date: string;
+  platform: string;
+  ytLink: string;
+  skillsDeliverables: string[];
+}
+
+interface PageProps {
   params: {
-    name: string;
+    id: string;
   };
 }
 
-const page: React.FC<Ipage> = ({ params }) => {
-  const name = decodeURI(params.name);
-  const [project, setProject] = useState<{
-    name: string;
-    image: string;
-    description: string;
-    date: string;
-    ytLink: string;
-  }>({ name: "", image: "", description: "", date: "", ytLink: "" });
+const ProjectPage: React.FC<PageProps> = ({ params }) => {
+  const [project, setProject] = useState<Project | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const currentProject = projects.map((subproject) =>
-      subproject.projects.find(
-        (project) => project.name.toLowerCase() === name.toLowerCase()
-      )
-    );
-    setProject(
-      currentProject.at(0) || {
-        name: "",
-        image: "",
-        description: "",
-        date: "",
-        ytLink: "",
+    const fetchProject = async () => {
+      try {
+        const response = await fetch(`/api/projects?id=${params.id}`);
+        const result = await response.json();
+
+        if (result.success) {
+          setProject(result.data);
+        } else {
+          setError(result.error || "Failed to fetch project");
+        }
+      } catch (err) {
+        setError("Failed to fetch project");
+      } finally {
+        setLoading(false);
       }
-    );
-    console.log(currentProject);
-  }, [name]);
+    };
+
+    fetchProject();
+  }, [params.id]);
 
   const fadeInUp = {
     initial: { opacity: 0, y: 20 },
@@ -60,6 +65,22 @@ const page: React.FC<Ipage> = ({ params }) => {
     animate: { opacity: 1, x: 0 },
     transition: { duration: 0.5 },
   };
+
+  if (loading) {
+    return (
+      <div className='min-h-screen flex items-center justify-center'>
+        <div className='animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-gray-200'></div>
+      </div>
+    );
+  }
+
+  if (error || !project) {
+    return (
+      <div className='min-h-screen flex items-center justify-center'>
+        <div className='text-red-500'>{error || "Project not found"}</div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -85,12 +106,11 @@ const page: React.FC<Ipage> = ({ params }) => {
               <div className='border-b border-gray-700 pb-10'>
                 <div className='text-gray-400'>Skills and Deliverables:</div>
                 <ul className='list-disc pl-4'>
-                  {skills.map((skill, index) => (
+                  {project.skillsDeliverables.map((skill, index) => (
                     <li key={index}>{skill}</li>
                   ))}
                 </ul>
               </div>
-              {/* Line break after "published on" for small devices */}
               <div className='hidden max-sm:block'>
                 <span className='text-gray-400'>Published on:&nbsp;</span>
                 <br />
@@ -100,7 +120,6 @@ const page: React.FC<Ipage> = ({ params }) => {
                 <span className='text-gray-400'>Published:&nbsp;</span>
                 {project.date}
               </div>
-              {/* end */}
             </motion.div>
             <motion.div
               className='flex flex-col lg:w-1/2 items-center'
@@ -122,64 +141,24 @@ const page: React.FC<Ipage> = ({ params }) => {
             </motion.div>
           </div>
           <div className='flex max-md:flex-col justify-between items-center gap-4'>
-            <div className='border-2 border-[#2d323c] h-80 w-96 mt-10 rounded-xl max-md:w-[300px] max-md:h-40'></div>
-            <div className='border-2 border-[#2d323c] h-80 w-96 mt-10 rounded-xl max-md:w-[300px] max-md:h-40'></div>
-            <div className='border-2 border-[#2d323c] h-80 w-96 mt-10 rounded-xl max-md:w-[300px] max-md:h-40'></div>
-            <div className='border-2 border-[#2d323c] h-80 w-96 mt-10 rounded-xl max-md:w-[300px] max-md:h-40'></div>
+            {project.images.map((image, index) => (
+              <div
+                key={index}
+                className='border-2 border-[#2d323c] h-80 w-96 mt-10 rounded-xl max-md:w-[300px] max-md:h-40'
+              >
+                <Image
+                  src={image}
+                  alt={`${project.name} image ${index + 1}`}
+                  width={384}
+                  height={320}
+                  className='w-full h-full object-cover rounded-xl'
+                />
+              </div>
+            ))}
           </div>
-          {/* {projects.slice(0, 2).map((project, index) => (
-            <div
-              key={index}
-              className={cn(
-                "flex items-center rounded-lg md:w-full min-w-[330px] md:max-h-96 overflow-hidden my-4 shadow-lg shadow-[rgba(0,0,0,0.4)]",
-                index % 2 === 0 ? "flex-row-reverse" : "flex-row"
-              )}
-            >
-              <div
-                className={`md:w-1/2 h-full max-w-[200px] md:max-w-none max-h-[369.844]`}
-              >
-                <CCarousel dataArray={project.projects} />
-              </div>
-              <div
-                className={cn(
-                  `w-1/2 h-full px-3 flex flex-col justify-around gap-5`,
-                  index % 2 === 0
-                    ? "text-left items-start"
-                    : "text-right items-end"
-                )}
-              >
-                <div>
-                  <h3 className='text-lg font-bold underline'>
-                    {project.name}
-                  </h3>
-                </div>
-                <div>
-                  <p className='text-sm w-[150px] h-[240px] md:h-auto font-sans'>
-                    {project.description}
-                  </p>
-                </div>
-              </div>
-            </div>
-          ))} */}
         </motion.section>
-        {/* <section className='w-full container max-h-screen flex flex-col items-center'>
-          <h1 className='text-2xl font-bold text-white'>{project.name}</h1>
-          <Image
-            className='h-full aspect-video w-full '
-            src={project.image || ""}
-            alt={project.name}
-            width={351}
-            height={412}
-            priority
-          />
-
-          <div>
-            <p className='text-white'>{project.description}</p>
-          </div>
-        </section> */}
-
         <footer className='w-full flex items-center justify-center'>
-          <span className='font-sans text-sm font-bold text-gray-100 opacity-50 '>
+          <span className='font-sans text-sm font-bold text-gray-100 opacity-50'>
             &copy; Nii Monney 2021
           </span>
         </footer>
@@ -187,4 +166,5 @@ const page: React.FC<Ipage> = ({ params }) => {
     </>
   );
 };
-export default page;
+
+export default ProjectPage;

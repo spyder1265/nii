@@ -13,7 +13,7 @@ export default async function Dashboard() {
         <DashboardCard
           title='Add Project'
           description='Create a new project entry'
-          href='/dashboard/projects/add-project'
+          href='/dashboard/add-project'
           icon='➕'
         />
         <DashboardCard

@@ -4,20 +4,21 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-interface IPage {
+interface PageProps {
   params: {
-    name: string;
+    id: string;
   };
 }
 
 interface Project {
-  _id: string;
+  id: string;
   name: string;
   images: string[];
   description: string;
   date: string;
   ytLink: string;
   skillsDeliverables: string[];
+  platform: string;
 }
 
 function LoadingSkeleton() {
@@ -85,17 +86,14 @@ function LoadingSkeleton() {
   );
 }
 
-export default function ProjectPage({ params }: IPage) {
-  const name = decodeURI(params.name);
+export default function ProjectPage({ params }: PageProps) {
   const [project, setProject] = useState<Project | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchProject = async () => {
       try {
-        const response = await fetch(
-          `/api/projects?name=${encodeURIComponent(name)}`
-        );
+        const response = await fetch(`/api/projects?id=${params.id}`);
         if (!response.ok) throw new Error("Failed to fetch project data.");
         const data = await response.json();
         setProject(data.data);
@@ -107,7 +105,7 @@ export default function ProjectPage({ params }: IPage) {
     };
 
     fetchProject();
-  }, [name]);
+  }, [params.id]);
 
   if (loading) {
     return LoadingSkeleton();
@@ -133,7 +131,7 @@ export default function ProjectPage({ params }: IPage) {
 
   return (
     <main className='container mx-auto'>
-      <div className='mb-6m flex justify-between items-center'>
+      <div className='mb-6 flex justify-between items-center'>
         <Link
           href='/dashboard/projects'
           className='text-blue-400 hover:underline'
@@ -142,7 +140,7 @@ export default function ProjectPage({ params }: IPage) {
         </Link>
         <div className='flex bg-blue-800 px-5 py-3 rounded-lg hover:bg-blue-950 cursor-pointer'>
           <Link
-            href={`/dashboard/projects/${encodeURIComponent(name)}/edit`}
+            href={`/dashboard/projects/${project.id}/edit`}
             className='text-blue-50'
           >
             Edit Project
@@ -164,13 +162,11 @@ export default function ProjectPage({ params }: IPage) {
             <div className='border-b border-gray-700 pb-10'>
               <div className='text-gray-400'>Skills and Deliverables:</div>
               <ul className='list-disc pl-4 mt-2'>
-                {project.skillsDeliverables?.flatMap((skill, index) =>
-                  skill.split(",").map((subSkill, subIndex) => (
-                    <li key={`${index}-${subIndex}`} className='mt-1'>
-                      {subSkill.trim()}
-                    </li>
-                  ))
-                ) || null}
+                {project.skillsDeliverables.map((skill, index) => (
+                  <li key={index} className='mt-1'>
+                    {skill}
+                  </li>
+                ))}
               </ul>
             </div>
 

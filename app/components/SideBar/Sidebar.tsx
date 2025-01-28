@@ -22,8 +22,20 @@ export default function Sidebar() {
       label: "Add Project",
       icon: FaFolderPlus,
     },
-    // { href: "/signup", label: "Sign Out", icon: FaSignOutAlt },
   ];
+
+  const isActiveLink = (href: string) => {
+    if (href === "/dashboard") {
+      return pathname === href;
+    }
+    if (href === "/dashboard/projects") {
+      return (
+        pathname.includes("/dashboard/projects") &&
+        !pathname.includes("/add-project")
+      );
+    }
+    return pathname === href;
+  };
 
   return (
     <main
@@ -38,14 +50,14 @@ export default function Sidebar() {
               <Link
                 href={href}
                 className={`flex items-center p-2 rounded-lg group ${
-                  pathname === href
+                  isActiveLink(href)
                     ? "bg-white text-gray-800"
                     : "text-white hover:bg-gray-700"
                 }`}
               >
                 <Icon
                   className={`w-5 h-5 ${
-                    pathname === href
+                    isActiveLink(href)
                       ? "text-gray-800"
                       : "text-gray-500 group-hover:text-white"
                   }`}

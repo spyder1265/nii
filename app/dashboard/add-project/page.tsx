@@ -13,7 +13,7 @@ interface FormData {
   skillsDeliverables: string;
 }
 
-const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+const MAX_FILE_SIZE = 5 * 1024 * 1024;
 const ALLOWED_FILE_TYPES = ["image/jpeg", "image/png", "image/webp"];
 
 export default function AddProject() {
@@ -40,8 +40,6 @@ export default function AddProject() {
     if (!e.target.files?.length) return;
 
     const files = Array.from(e.target.files);
-
-    // Validate files
     const invalidFiles = files.filter(
       (file) =>
         !ALLOWED_FILE_TYPES.includes(file.type) || file.size > MAX_FILE_SIZE
@@ -71,7 +69,6 @@ export default function AddProject() {
 
           if (!response.ok) {
             const errorText = await response.text();
-            console.error("Upload error:", errorText);
             throw new Error(`Image upload failed: ${errorText}`);
           }
 
@@ -98,18 +95,32 @@ export default function AddProject() {
     setIsLoading(true);
 
     try {
+      const payload = {
+        ...formData,
+        skillsDeliverables: formData.skillsDeliverables
+          .split(",")
+          .map((skill) => skill.trim()),
+      };
+
+      console.log("Sending payload:", payload);
+
       const response = await fetch("/api/projects", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...formData,
-          skillsDeliverables: formData.skillsDeliverables
-            .split(",")
-            .map((skill) => skill.trim()),
-        }),
+        body: JSON.stringify(payload),
       });
 
-      const data = await response.json();
+      const responseText = await response.text();
+      console.log("Raw response:", responseText);
+
+      let data;
+      try {
+        data = JSON.parse(responseText);
+      } catch (parseError) {
+        console.error("JSON parse error:", parseError);
+        console.log("Failed to parse response:", responseText);
+        throw new Error("Invalid response from server");
+      }
 
       if (!response.ok) {
         throw new Error(data.error || "Failed to add project");
@@ -118,8 +129,10 @@ export default function AddProject() {
       toast.success("Project added successfully!");
       router.push("/dashboard/projects");
     } catch (error) {
-      console.error(error);
-      toast.error((error as Error).message || "Failed to add project");
+      console.error("Form submission error:", error);
+      toast.error(
+        error instanceof Error ? error.message : "Failed to add project"
+      );
     } finally {
       setIsLoading(false);
     }

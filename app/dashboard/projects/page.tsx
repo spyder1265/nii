@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { FolderOpen } from "lucide-react"; // Import the icon we'll use for empty state
 
 interface Project {
-  _id: string;
+  id: string;
   name: string;
   description: string;
   images: string[];
@@ -106,14 +106,22 @@ export default function Projects() {
       <div className='mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
         {projects.map((project) => (
           <Link
-            href={`/dashboard/projects/${project.name}`}
-            key={project._id}
+            href={`/dashboard/projects/${project.id}`}
+            key={project.id}
             className='bg-gray-800 p-6 rounded-lg hover:bg-gray-700'
           >
             <div className='flex justify-between items-center pb-2'>
               <div className='flex flex-col'>
                 <span className='text-xl text-white'>{project.name}</span>
-                <span className='font-light text-gray-500'>{project.date}</span>
+                {/* <span className='font-light text-gray-500'>{project.date}</span> */}
+                <span className='font-light text-gray-500'>
+                  {project.date
+                    ? new Date(project.date).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                      })
+                    : "Unknown Date"}
+                </span>
               </div>
               <div>
                 <span
