@@ -1,8 +1,9 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
-export default function AuthError() {
+function AuthErrorContent() {
   const searchParams = useSearchParams();
   const error = searchParams.get("error");
 
@@ -11,7 +12,7 @@ export default function AuthError() {
       case "AccessDenied":
         return "You are not authorized to access this resource. Please make sure you are using an allowed email address.";
       case "OAuthSignin":
-        return "Error occurred during sign in attempt. Please try again.";
+        return "Error occurred during sign-in attempt. Please try again.";
       default:
         return "An authentication error occurred. Please try again.";
     }
@@ -28,5 +29,13 @@ export default function AuthError() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function AuthError() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <AuthErrorContent />
+    </Suspense>
   );
 }

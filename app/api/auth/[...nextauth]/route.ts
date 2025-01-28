@@ -1,7 +1,11 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 
-const ALLOWED_EMAILS = ["edmund.phillips@acity.edu.gh"]; // Replace with your allowed emails
+const ALLOWED_EMAILS = [
+  "edmund.phillips@acity.edu.gh",
+  "niiammahmonney@gmail.com",
+  "titus.abeiku@acity.edu.gh",
+]; // Replace with your allowed emails
 
 const handler = NextAuth({
   providers: [
