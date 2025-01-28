@@ -103,7 +103,7 @@ export default function Home() {
             <BlurFade delay={0.25} inView>
               <div className='flex max-md:flex-col gap-8 justify-center'>
                 {isLoading ? (
-                  <div className='w-full text-center py-8'>
+                  <div className='flex w-full text-center py-8'>
                     <ProjectCardSkeleton />
                     <ProjectCardSkeleton />
                     <ProjectCardSkeleton />
