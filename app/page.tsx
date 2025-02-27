@@ -6,7 +6,6 @@ import Footer from "./components/Footer/Footer";
 import { FaArrowRight } from "react-icons/fa6";
 import Image from "next/image";
 import Link from "next/link";
-import TypingAnimation from "@/components/ui/typing-animation";
 import BlurFade from "@/components/ui/blur-fade";
 
 interface Project {
@@ -124,12 +123,15 @@ export default function Home() {
                         <div className='flex w-full h-full flex-col'>
                           <div className='h-3/5'>
                             <Image
-                              src={project.images[0] || "/placeholder.jpg"}
-                              width={100}
-                              height={100}
+                              src={project.images[0]}
+                              width={600}
+                              height={600}
                               quality={100}
+                              priority={true}
                               alt={project.name}
-                              className='w-full h-full overflow-hidden rounded-t-xl aspect-square object-cover'
+                              className='w-full h-full rounded-t-xl object-cover transform hover:scale-105 transition-transform duration-500 ease-in-out'
+                              sizes='(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw'
+                              unoptimized={false}
                             />
                           </div>
                           <div className='flex flex-col gap-5 p-4'>
