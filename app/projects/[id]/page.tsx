@@ -207,8 +207,8 @@ const ProjectPage: React.FC<PageProps> = ({ params }) => {
 
   return (
     <>
-      <main className='flex flex-col min-h-screen w-full items-center bg-gray-900 text-white'>
-        <header className='sticky top-0 z-10 w-full min-h-[84px] bg-gray-900/50 backdrop-blur-sm border-b border-gray-800'>
+      <main className='flex min-h-screen z-40 sticky top-0 flex-col justify-between items-center'>
+        <header className='min-h-[84px] w-full bg-[rgba(0,0,0,0.4)]'>
           <Navbar fixed />
         </header>
 
@@ -221,7 +221,7 @@ const ProjectPage: React.FC<PageProps> = ({ params }) => {
           {/* Back Button */}
           <Link
             href='/projects'
-            className='self-start inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors mb-2'
+            className='max-md:hidden self-start inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors mb-2'
           >
             <svg
               xmlns='http://www.w3.org/2000/svg'
@@ -334,15 +334,10 @@ const ProjectPage: React.FC<PageProps> = ({ params }) => {
           </motion.div>
         </motion.section>
 
-        <footer className='w-full py-6 mt-auto border-t border-gray-800'>
-          <div className='container mx-auto px-4 flex items-center justify-between'>
-            <span className='font-sans text-sm text-gray-400'>
-              &copy; Nii Monney {new Date().getFullYear()}
-            </span>
-            <div className='flex gap-4'>
-              {/* Additional footer content could go here */}
-            </div>
-          </div>
+        <footer className='w-full flex items-center justify-center'>
+          <span className='font-sans text-sm text-gray-400'>
+            &copy; Nii Monney {new Date().getFullYear()}
+          </span>
         </footer>
 
         {/* Floating Back Button (for mobile) */}
