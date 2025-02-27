@@ -76,7 +76,7 @@ export default function Home() {
               preload='auto'
               muted
               loop
-              src='https://res.cloudinary.com/dabswbhzp/video/upload/v1715806966/nii_monney/zdnl8q8yebf8mybvqxzu.mp4'
+              src='https://res.cloudinary.com/dggc80unb/video/upload/v1740664174/glzl7g2ahc3qksgnl4wp.mp4'
               autoPlay
             ></video>
             <div className='absolute top-0 left-0 right-0 w-full bg-[rgba(0,0,0,0.4)]'>
@@ -86,11 +86,10 @@ export default function Home() {
         </header>
         <section className='flex relative top-7 items-center text-center py-8 pb-11 px-8 md:px-56 h-24'>
           <BlurFade delay={0.25} inView>
-            <TypingAnimation
-              className='text-xl max-md:text-sm leading-6 tracking-normal md:w-[700px] font-thin'
-              duration={50}
-              text="Greetings! I'm Nii Monney, a passionate 3D CG generalist and video editor with a love for bringing imaginative worlds to life. My journey in the realm of digital creativity has been a thrilling ride, fueled by a dedication to pushing the boundaries of visual storytelling."
-            />
+            <span className='text-xl max-md:text-sm leading-6 tracking-normal md:w-[700px] font-thin'>
+              Combining creativity with technical precision. Whether for brands
+              and products
+            </span>
           </BlurFade>
         </section>
         <section className='flex flex-col container items-center justify-center w-full gap-5 py-8 px-4 md:px-56'>
@@ -103,7 +102,7 @@ export default function Home() {
             <BlurFade delay={0.25} inView>
               <div className='flex max-md:flex-col gap-8 justify-center'>
                 {isLoading ? (
-                  <div className='flex w-full text-center py-8'>
+                  <div className='flex max-md:flex-col gap-8 justify-center'>
                     <ProjectCardSkeleton />
                     <ProjectCardSkeleton />
                     <ProjectCardSkeleton />
@@ -141,7 +140,7 @@ export default function Home() {
                                   ? "bg-green-600"
                                   : project.platform === "Passion Project"
                                   ? "bg-purple-600"
-                                  : project.platform === "Commercial Work"
+                                  : project.platform === "Commercial"
                                   ? "bg-blue-600"
                                   : "bg-orange-500"
                               }`}
