@@ -7,6 +7,7 @@ import { FaArrowRight } from "react-icons/fa6";
 import Image from "next/image";
 import Link from "next/link";
 import BlurFade from "@/components/ui/blur-fade";
+import ProjectCard from "@/app/components/ProjectCard/ProjectCard";
 
 interface Project {
   id: string;
@@ -115,52 +116,14 @@ export default function Home() {
                     .sort(() => 0.5 - Math.random())
                     .slice(0, 3)
                     .map((project) => (
-                      <Link
-                        className='border-2 border-[#2d323c] flex w-[339.48px] h-96 rounded-xl hover:scale-105 hover:shadow-xl focus:outline-none transition duration-700 focus:ring-2 focus:ring-[#2d323c] focus:border-transparent text-gray-200 hover:bg-gray-500 hover:text-white shadow-md shadow-[rgba(0,0,0,0.4)]'
+                      <ProjectCard
                         key={project.id}
-                        href={`/projects/${project.id}`}
-                      >
-                        <div className='flex w-full h-full flex-col'>
-                          <div className='h-3/5'>
-                            <Image
-                              src={project.images[0]}
-                              width={600}
-                              height={600}
-                              quality={100}
-                              priority={true}
-                              alt={project.name}
-                              className='w-full h-full rounded-t-xl object-cover transform hover:scale-105 transition-transform duration-500 ease-in-out'
-                              sizes='(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw'
-                              unoptimized={false}
-                            />
-                          </div>
-                          <div className='flex flex-col gap-5 p-4'>
-                            <span className='truncate'>{project.name}</span>
-                            <span
-                              className={`px-2 py-1 w-fit rounded-lg ${
-                                project.platform === "Upwork"
-                                  ? "bg-green-600"
-                                  : project.platform === "Passion Project"
-                                  ? "bg-purple-600"
-                                  : project.platform === "Commercial"
-                                  ? "bg-blue-600"
-                                  : "bg-orange-500"
-                              }`}
-                            >
-                              {project.platform}
-                            </span>
-                            {/* <span>{project.date}</span> */}
-                            <span>
-                              {project.date
-                                ? new Date(project.date).toLocaleDateString(
-                                    "en-US",
-                                    { year: "numeric", month: "long" }
-                                  )
-                                : "Unknown Date"}
-                            </span>
-                          </div>
-                        </div>
-                      </Link>
+                        id={project.id}
+                        name={project.name}
+                        platform={project.platform}
+                        date={project.date}
+                        image={project.images[0]}
+                      />
                     ))
                 )}
               </div>
