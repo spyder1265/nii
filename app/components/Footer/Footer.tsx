@@ -82,8 +82,10 @@ const Footer: React.FC<IFooter> = ({}) => {
         >
           Contact
         </h1>
-        <div className='flex w-full justify-center'>
-          <div className='w-1/2'>{form}</div>
+        <div className='flex w-full justify-center max-md:flex-col max-md:items-center gap-10'>
+          <div className='w-1/2 flex max-md:w-full max-md:justify-center items-center'>
+            {form}
+          </div>
           <div className='w-1/2 flex flex-col items-center py-2 gap-5 justify-between h-1/2'>
             <div className='flex items-center w-full justify-center gap-5 text-lg md:text-2xl'>
               <a
@@ -124,10 +126,15 @@ const Footer: React.FC<IFooter> = ({}) => {
             </div>
 
             <div className='flex max-md:flex-col items-center justify-center w-full gap-5'>
-              <p className='text-sm font-sans'>&copy; 2024 Nii Monney</p>
-              <Link href={"/dashboard"} className='text-sm font-sans'>
+              <Link
+                href={"/dashboard"}
+                className='text-sm font-sans text-gray-400'
+              >
                 Dashboard
               </Link>
+              <p className='text-sm font-sans'>
+                &copy; {new Date().getFullYear()} Nii Monney
+              </p>
             </div>
           </div>
         </div>

@@ -1,176 +1,189 @@
 import Image from "next/image";
 import Navbar from "../components/Navbar/Navbar";
+import TypingAnimation from "@/components/ui/typing-animation";
 
 interface Ipage {}
 
 const page: React.FC<Ipage> = ({}) => {
   return (
     <>
-      <main className='flex min-h-screen z-40 sticky top-0 flex-col items-center'>
-        <header className='min-h-[84px] w-full bg-[rgba(0,0,0,0.4)]'>
+      <main className='min-h-screen bg-gradient-to-b from-black via-gray-900 to-black'>
+        <header className='min-h-[84px] w-full bg-black/40 backdrop-blur-sm z-50 sticky top-0'>
           <Navbar fixed />
         </header>
-        <section className='flex flex-col gap-3 items-center justify-around text-center py-8 pb-11 px-8 md:px-56 '>
-          <div className='w-full flex flex-col mt-14 items-center justify-center animate__animated animate__fadeInLeft'>
-            <div className='rounded-full overflow-hidden flex items-center p-1 border-2  h-[200px] w-[200px] justify-center '>
+
+        <section className='max-w-4xl mx-auto px-6 md:px-8 py-12'>
+          <div className='relative h-[300px] w-[300px] mx-auto mb-16 animate__animated animate__fadeInDown'>
+            <div className='absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full blur-xl opacity-50 animate-pulse'></div>
+            <div className='relative rounded-full overflow-hidden border-4 border-white/10 h-full w-full'>
               <Image
-                src={"/img/DSC_0075.png"}
-                alt={"profile_img"}
-                width={200}
-                height={200}
+                src={"/img/nii_profile_pic.jpg"}
+                alt={"Nii Monney"}
+                fill
                 quality={100}
-                className='h-full w-full rounded-full object-cover object-left'
+                className='object-cover object-center transform hover:scale-110 transition-transform duration-500'
               />
             </div>
           </div>
-          <div className='flex flex-col justify-center items-center gap-6 animate__animated animate__fadeInLeft'>
-            <div>
-              <h1
-                className='
-            text-2xl font-bold text-center
-            underline
-            
-            '
-              >
+
+          <div className='space-y-12 animate__animated animate__fadeIn'>
+            <section className='text-center'>
+              <h1 className='text-4xl font-bold mb-8 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent'>
                 About Me
               </h1>
-            </div>
-            <div>
-              <p className=' tracking-wide'>
-                Greetings! I'm Nii_monney,a passionate 3D CG generalist and
-                video editor with a love for bringing imaginative worlds to
-                life. My journey in the realm of digital creativity has been a
-                thrilling ride, fueled by a dedication to pushing the boundaries
-                of visual storytelling.
+              <p className='text-lg text-gray-300 leading-relaxed'>
+                I am a professional 3D animator specialising in high-quality
+                visual storytelling for brands, products, and creative projects.
+                With a strong foundation in 3D Software and industry-standard
+                tools, I craft compelling animations that captivate audiences
+                and enhance brand presence. My expertise spans product
+                animations, cinematic sequences, promotional videos, and
+                conceptual art animations. By blending creativity with technical
+                precision, I bring ideas to life with dynamic motion, engaging
+                visuals, and an eye for detail. Whether you're looking to
+                showcase a product, tell a story, or elevate your brand's
+                digital presence, I deliver animations that leave a lasting
+                impact.
               </p>
-              <br />
-              <h1 className='text-left font-bold text-xl'>
-                <span className='underline'>What I Do</span> :
-              </h1>
-              <br />
-              <p className='text-justify tracking-wide'>
-                As a 3D CG generalist, I thrive on the dynamic intersection of
-                art and technology. From modeling and texturing to lighting and
-                animation, I immerse myself in every facet of the 3D realm,
-                sculpting virtual landscapes that captivate and inspire. In the
-                realm of video editing, I weave narratives with precision and
-                flair. Every frame is a brushstroke, and every cut is a note in
-                the symphony of storytelling. Whether it's a promotional video,
-                a cinematic sequence, or a visually stunning advertisement, I
-                bring a meticulous eye and a flair for creativity to every
-                project
-              </p>
-              <br />
-              <h1 className='text-left font-bold text-xl'>
-                <span className='underline'>Why I Do It</span> :
-              </h1>
-              <br />
-              <p className='text-justify tracking-wide'>
-                Creativity is my compass, guiding me through the uncharted
-                territories of imagination. I believe that the marriage of
-                technical skill and artistic intuition has the power to
-                transport audiences, evoke emotions, and leave a lasting impact.
-                It's not just about creating visuals; it's about crafting
-                experiences that linger in the minds of those who encounter
-                them.
-              </p>
-              <br />
-              <h1 className='text-left font-bold text-xl'>
-                <span className='underline'>Join Me on the Journey</span> :
-              </h1>
-              <br />
-              <p className='text-justify tracking-wide'>
-                Here on my website, you'll find a curated showcase of my work, a
-                glimpse into my creative process, and perhaps a spark of
-                inspiration for your own projects. Whether you're a fellow
-                artist, a potential collaborator, or someone simply curious
-                about the world of 3D CG and video editing, I invite you to
-                explore and connect.
-              </p>
-              <br />
-              <h1 className='text-left font-bold text-xl'>
-                <span className='underline'>
-                  Collaborations and Noteworthy Projects
-                </span>{" "}
-                :
-              </h1>
-              <br />
-              <p className='text-justify tracking-wide'>
-                In my journey as a 3D CG generalist and video editor, I've had
-                the privilege of collaborating with some incredible talents and
-                organizations. Here are a few highlights:
-              </p>
-              <br />
-              <div className='text-left pl-12'>
-                <ol className='list-disc'>
-                  <li className='text-left font-bold '>
-                    <span className='underline'>
-                      King Maaga and the World of Music
-                    </span>{" "}
-                    :
-                  </li>
-                  <p className='tracking-wide'>
-                    I've lent my creative touch to the vibrant worlds of Reggae
-                    and Afrobeat alongside the talented King Maaga. Our
-                    collaborations have not only been a celebration of music but
-                    also a fusion of visual artistry and rhythm.
-                  </p>
-                  <br />
-                  <li className='text-left font-bold '>
-                    <span className='underline'>
-                      Empowering Minds with Academic City University College
-                    </span>{" "}
-                    :
-                  </li>
-                  <p className='tracking-wide'>
-                    Working with Academic City University College, I've had the
-                    opportunity to contribute to the visual representation of
-                    educational experiences. It's a unique joy to blend
-                    creativity with academia, bringing concepts to life through
-                    the lens of 3D and video.
-                  </p>
-                  <br />
-                  <li className='text-left font-bold '>
-                    <span className='underline'>Dizruptive gh Madmappers</span>{" "}
-                    :
-                  </li>
-                  <p className='tracking-wide'>
-                    As a part of the Dizruptive gh Madmappers team, I've been
-                    involved in disruptive projects that challenge conventional
-                    thinking. It's an environment where innovation meets
-                    creativity, and I'm proud to be a contributor to this
-                    dynamic space.
-                  </p>
-                  <br />
-                  <li className='text-left font-bold tracking-wide'>
-                    <span className='underline'>
-                      Freelancing Adventures on Upwork
-                    </span>{" "}
-                    :
-                  </li>
-                  <p className='tracking-wide'>
-                    Beyond specific collaborations, I've embarked on freelance
-                    adventures on Upwork, connecting with clients from diverse
-                    industries. Each project is an opportunity to learn, grow,
-                    and add a unique touch to someone else's vision.
-                  </p>
-                </ol>
+            </section>
+            <section className='space-y-6'>
+              <h2 className='text-2xl max-md:text-xl font-bold text-left border-l-4 border-purple-500 pl-4'>
+                Proposal for Animation Services
+              </h2>
+              <div className='bg-white/5 rounded-lg p-6 backdrop-blur-sm hover:bg-white/10 transition-colors duration-300'>
+                <p className='text-gray-300 leading-relaxed'>
+                  Objective To create a high-quality 3D animation tailored to
+                  your project needs, ensuring a visually compelling and
+                  engaging experience for your target audience.
+                </p>
               </div>
-              <br />
-              <p className='text-justify'>
-                Thank you for stepping into my digital realm. Let's embark on a
-                visual adventure together!
-              </p>
+              <div className='grid gap-6 md:grid-cols-2'>
+                <div className='bg-white/5 rounded-lg p-6 backdrop-blur-sm hover:bg-white/10 transition-colors duration-300'>
+                  <h3 className='text-xl font-bold mb-3 text-purple-400'>
+                    Scope of Work
+                  </h3>
+                  <ul className='text-gray-50 list-disc pl-6 tracking-tighter'>
+                    <li className='pb-2'>
+                      Concept Development -{" "}
+                      <span className='text-gray-400'>
+                        Understanding your vision, brand, and objectives.
+                      </span>
+                    </li>
+                    <li className='pb-2'>
+                      Storyboarding -{" "}
+                      <span className='text-gray-400'>
+                        Creating a visual roadmap of the animation.
+                      </span>
+                    </li>
+                    <li className='pb-2'>
+                      3D Modeling & Texturing -{" "}
+                      <span className='text-gray-400'>
+                        Crafting detailed models with realistic textures.
+                      </span>
+                    </li>
+                    <li className='pb-2'>
+                      Animation & Motion Design -{" "}
+                      <span className='text-gray-400'>
+                        Bringing scenes to life with smooth and engaging motion.
+                      </span>
+                    </li>
+                    <li className='pb-2'>
+                      Lighting & Rendering -{" "}
+                      <span className='text-gray-400'>
+                        Enhancing visuals for a polished and professional look.
+                      </span>
+                    </li>
+                    <li className='pb-2'>
+                      Final Editing & Delivery -{" "}
+                      <span className='text-gray-400'>
+                        Compositing, sound design, and format optimization.
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+                <div className='bg-white/5 rounded-lg p-6 backdrop-blur-sm hover:bg-white/10 transition-colors duration-300'>
+                  <h3 className='text-xl font-bold mb-3 text-purple-400'>
+                    Budget & Pricing
+                  </h3>
+                  <p className='text-gray-300 pb-4'>
+                    Pricing varies depending on project complexity, animation
+                    length, and required assets. Below is an estimated range:
+                  </p>
+                  <ul className='text-gray-300 list-disc pl-6 pb-4 tracking-tighter'>
+                    <li>Short Animations (10-30s): $300 - $800</li>
+                    <li>Product Visualizations (30s-1min): $800 - $2,000</li>
+                    <li>Cinematic Sequences (1-2min): $2,000+</li>
+                  </ul>
+                  Custom quotes are available based on specific project
+                  requirements.
+                </div>
+                <div className='bg-white/5 rounded-lg p-6 backdrop-blur-sm hover:bg-white/10 transition-colors duration-300'>
+                  <h3 className='text-xl font-bold mb-3 text-purple-400'>
+                    Timelines & Deadlines
+                  </h3>
+                  <ul className='text-gray-300 list-disc pl-6 pb-4 tracking-tighter'>
+                    <li>Short Animations: 1-2 weeks</li>
+                    <li>Product Visualizations: 2-4 weeks</li>
+                    <li>Cinematic Sequences: 4+ weeks</li>
+                  </ul>
+                </div>
+                <div className='bg-white/5 rounded-lg p-6 backdrop-blur-sm hover:bg-white/10 transition-colors duration-300'>
+                  <h3 className='text-xl font-bold mb-3 text-purple-400'>
+                    Revisions & Deliverables
+                  </h3>
+                  <ul className='text-gray-300 list-disc pl-6 pb-4 tracking-tighter'>
+                    <li>Two rounds of revisions included</li>
+                    <li>Final animation delivered in HD or 4K format</li>
+                    <li>
+                      Source files available upon request (additional fee may
+                      apply)
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </section>
+
+            <section className='space-y-4'>
+              <h2 className='text-2xl max-md:text-xl font-bold text-left border-l-4 border-purple-500 pl-4'>
+                Why I Do It
+              </h2>
+              <div className='bg-white/5 rounded-lg p-6 backdrop-blur-sm hover:bg-white/10 transition-colors duration-300'>
+                <ul className='text-gray-300 leading-relaxed list-disc pl-6 tracking-tighter'>
+                  <li>
+                    Creative & Technical Expertise: Years of experience in 3D
+                    animation and visualization.
+                  </li>
+                  <li>
+                    Tailored Approach: I adapt to your brand’s style and project
+                    goals.{" "}
+                  </li>
+                  <li>
+                    Reliability & Communication: Transparent workflow with
+                    regular updates.{" "}
+                  </li>
+                </ul>
+              </div>
+            </section>
+            <div className='mt-4'>
+              <TypingAnimation
+                className='w-full text-lg max-md:text-sm leading-6 tracking-normal max-md:w-[700px] font-extralight'
+                duration={20}
+                text='Lets discuss your project requirements and bring your vision to
+                life. Contact me to get started!'
+              />
             </div>
           </div>
         </section>
-        <footer className='pb-4'>
-          <span className='font-sans text-sm font-bold text-gray-100 opacity-50 '>
-            &copy; Nii Monney 2021
+
+        <footer className='text-center py-8 border-t border-white/10'>
+          <span className='text-sm font-medium text-gray-400'>
+            &copy; {new Date().getFullYear()} Nii Monney • Bringing imagination
+            to life
           </span>
         </footer>
       </main>
     </>
   );
 };
+
 export default page;
