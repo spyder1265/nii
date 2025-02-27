@@ -67,7 +67,7 @@ const ProjectsPage = () => {
 
   return (
     <>
-      <main className='flex min-h-screen z-40 sticky top-0 flex-col justify-between items-center'>
+      <main className='flex min-h-screen z-40 sticky top-0 right-0 flex-col justify-between items-center'>
         <header className='min-h-[84px] w-full bg-[rgba(0,0,0,0.4)]'>
           <Navbar fixed />
         </header>
@@ -75,7 +75,7 @@ const ProjectsPage = () => {
           className='flex flex-row items-start top-0'
           {...fadeInUp}
         >
-          <div className='flex justify-normal w-full h-full gap-6 p-10 flex-wrap'>
+          <div className='flex justify-normal w-full h-full gap-6 p-10 max-md:p-5 flex-wrap'>
             {projects.map((project) => (
               <BlurFade key={project.id} delay={0.25} inView>
                 <Link

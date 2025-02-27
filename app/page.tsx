@@ -99,7 +99,7 @@ export default function Home() {
           </Link>
           <div className='w-full flex flex-col justify-center'>
             <BlurFade delay={0.25} inView>
-              <div className='flex max-md:flex-col gap-8 justify-center'>
+              <div className='flex max-md:flex-col gap-8 justify-center items-center'>
                 {isLoading ? (
                   <div className='flex max-md:flex-col gap-8 justify-center'>
                     <ProjectCardSkeleton />
