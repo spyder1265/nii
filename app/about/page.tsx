@@ -164,21 +164,20 @@ const page: React.FC<Ipage> = ({}) => {
                 </ul>
               </div>
             </section>
-            <div className='mt-4'>
+            {/* <div className='mt-4'>
               <TypingAnimation
                 className='w-full text-lg max-md:text-sm leading-6 tracking-normal max-md:w-[700px] font-extralight'
                 duration={20}
                 text='Lets discuss your project requirements and bring your vision to
                 life. Contact me to get started!'
               />
-            </div>
+            </div> */}
           </div>
         </section>
 
-        <footer className='text-center py-8 border-t border-white/10'>
-          <span className='text-sm font-medium text-gray-400'>
-            &copy; {new Date().getFullYear()} Nii Monney • Bringing imagination
-            to life
+        <footer className='w-full flex items-center justify-center'>
+          <span className='font-sans text-sm text-gray-400'>
+            &copy; Nii Monney {new Date().getFullYear()}
           </span>
         </footer>
       </main>

@@ -129,8 +129,8 @@ const ProjectsPage = () => {
           </div>
         </motion.section>
         <footer className='w-full flex items-center justify-center'>
-          <span className='font-sans text-sm font-bold text-gray-100 opacity-50'>
-            &copy; Nii Monney 2021
+          <span className='font-sans text-sm text-gray-400'>
+            &copy; Nii Monney {new Date().getFullYear()}
           </span>
         </footer>
       </main>
