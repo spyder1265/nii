@@ -199,7 +199,7 @@ const ProjectPage: React.FC<PageProps> = ({ params }) => {
           href='/projects'
           className='px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors'
         >
-          Back to Projects
+          Back
         </Link>
       </div>
     );
@@ -236,7 +236,7 @@ const ProjectPage: React.FC<PageProps> = ({ params }) => {
             >
               <path d='M19 12H5M12 19l-7-7 7-7' />
             </svg>
-            <span>Back to Projects</span>
+            <span>Back</span>
           </Link>
 
           {/* Project Header */}
@@ -279,7 +279,7 @@ const ProjectPage: React.FC<PageProps> = ({ params }) => {
                 <ul className='grid grid-cols-1 md:grid-cols-2 gap-2'>
                   {project.skillsDeliverables.map((skill, index) => (
                     <li key={index} className='flex items-start gap-2'>
-                      <span className='text-blue-400 mt-1'>•</span>
+                      <span className='text-blue-400'>•</span>
                       <span>{skill}</span>
                     </li>
                   ))}
@@ -345,7 +345,7 @@ const ProjectPage: React.FC<PageProps> = ({ params }) => {
           <Link
             href='/projects'
             className='flex items-center justify-center h-12 w-12 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition-colors'
-            aria-label='Back to Projects'
+            aria-label='Back'
           >
             <svg
               xmlns='http://www.w3.org/2000/svg'

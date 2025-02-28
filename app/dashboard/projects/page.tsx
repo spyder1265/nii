@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { FolderOpen } from "lucide-react"; // Import the icon we'll use for empty state
+import { FolderOpen } from "lucide-react";
 
 interface Project {
   id: string;
@@ -17,19 +17,18 @@ interface Project {
 
 function ProjectSkeleton() {
   return (
-    <div className='bg-gray-800 p-6 rounded-lg animate-pulse'>
-      <div className='flex justify-between items-center pb-2'>
-        <div className='flex flex-col gap-2'>
-          <div className='h-6 w-32 bg-gray-700 rounded'></div>
-          <div className='h-4 w-24 bg-gray-700 rounded'></div>
+    <div className='bg-gray-900 p-6 rounded-xl animate-pulse shadow-md'>
+      <div className='flex justify-between items-center pb-3'>
+        <div className='flex flex-col gap-3'>
+          <div className='h-6 w-36 bg-gray-700 rounded-md'></div>
+          <div className='h-4 w-28 bg-gray-700 rounded-md'></div>
         </div>
-        <div className='h-8 w-24 bg-gray-700 rounded-lg'></div>
+        <div className='h-8 w-28 bg-gray-700 rounded-lg'></div>
       </div>
-      <div className='mt-4 space-y-2'>
-        <div className='h-4 w-full bg-gray-700 rounded'></div>
-        <div className='h-4 w-full bg-gray-700 rounded'></div>
-        <div className='h-4 w-3/4 bg-gray-700 rounded'></div>
-        <div className='h-4 w-1/2 bg-gray-700 rounded'></div>
+      <div className='mt-5 space-y-3'>
+        <div className='h-4 w-full bg-gray-700 rounded-md'></div>
+        <div className='h-4 w-3/4 bg-gray-700 rounded-md'></div>
+        <div className='h-4 w-1/2 bg-gray-700 rounded-md'></div>
       </div>
     </div>
   );
@@ -37,19 +36,17 @@ function ProjectSkeleton() {
 
 function EmptyState() {
   return (
-    <div className='flex flex-col items-center justify-center p-8 mt-8 bg-gray-800 rounded-lg'>
-      <FolderOpen className='w-16 h-16 text-gray-400 mb-4' />
-      <h3 className='text-xl font-semibold text-white mb-2'>
-        No Projects Found
-      </h3>
+    <div className='flex flex-col items-center justify-center p-10 mt-10 bg-gray-900 rounded-xl shadow-md'>
+      <FolderOpen className='w-20 h-20 text-gray-500 mb-5' />
+      <h3 className='text-2xl font-bold text-white mb-3'>No Projects Yet</h3>
       <p className='text-gray-400 text-center mb-6'>
-        There are currently no projects available to display.
+        Start adding projects to showcase your work and experience.
       </p>
       <Link
         href='/dashboard/add-project'
-        className='px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors'
+        className='px-5 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all shadow-md'
       >
-        Add Project
+        Add Your First Project
       </Link>
     </div>
   );
@@ -78,11 +75,11 @@ export default function Projects() {
 
   if (loading) {
     return (
-      <section className='mb-8'>
-        <div className='animate-pulse mb-4'>
-          <div className='h-8 w-32 bg-gray-700 rounded'></div>
+      <section className='mb-10'>
+        <div className='animate-pulse mb-5'>
+          <div className='h-9 w-40 bg-gray-700 rounded-md'></div>
         </div>
-        <div className='mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+        <div className='mt-5 grid grid-cols-1 lg:grid-cols-3 gap-8'>
           {[...Array(6)].map((_, index) => (
             <ProjectSkeleton key={index} />
           ))}
@@ -93,28 +90,29 @@ export default function Projects() {
 
   if (projects.length === 0) {
     return (
-      <section className='mb-8'>
-        <h2 className='text-2xl font-semibold'>PROJECTS</h2>
+      <section className='mb-10'>
+        <h2 className='text-3xl font-bold text-white'>Projects</h2>
         <EmptyState />
       </section>
     );
   }
 
   return (
-    <section className='mb-8'>
-      <h2 className='text-2xl font-semibold'>PROJECTS</h2>
-      <div className='mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+    <section className='mb-10'>
+      <h2 className='text-3xl font-semibold text-white'>Projects</h2>
+      <div className='mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
         {projects.map((project) => (
           <Link
             href={`/dashboard/projects/${project.id}`}
             key={project.id}
-            className='bg-gray-800 p-6 rounded-lg hover:bg-gray-700'
+            className='bg-gray-800 p-6 rounded-xl shadow-lg hover:bg-gray-900 transition-all duration-300'
           >
-            <div className='flex justify-between items-center pb-2'>
+            <div className='flex justify-between items-center pb-3'>
               <div className='flex flex-col'>
-                <span className='text-xl text-white'>{project.name}</span>
-                {/* <span className='font-light text-gray-500'>{project.date}</span> */}
-                <span className='font-light text-gray-500'>
+                <span className='text-xl text-white font-semibold line-clamp-1'>
+                  {project.name}
+                </span>
+                <span className='font-light text-gray-400'>
                   {project.date
                     ? new Date(project.date).toLocaleDateString("en-US", {
                         year: "numeric",
@@ -125,12 +123,12 @@ export default function Projects() {
               </div>
               <div>
                 <span
-                  className={`px-2 py-1 w-fit rounded-lg text-nowrap ${
+                  className={`px-4 py-1 w-fit rounded-md text-sm font-medium text-white shadow-md p-2 ${
                     project.platform === "Upwork"
                       ? "bg-green-600"
                       : project.platform === "Passion Project"
                       ? "bg-purple-600"
-                      : project.platform === "Commercial Work"
+                      : project.platform === "Commercial"
                       ? "bg-blue-600"
                       : "bg-orange-500"
                   }`}
@@ -139,7 +137,7 @@ export default function Projects() {
                 </span>
               </div>
             </div>
-            <p className='text-gray-400 font-light text-justify tracking-tighter leading-relaxed line-clamp-6'>
+            <p className='text-gray-400 font-light text-justify tracking-tight leading-relaxed line-clamp-6'>
               {project.description}
             </p>
           </Link>
