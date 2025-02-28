@@ -279,7 +279,7 @@ const ProjectPage: React.FC<PageProps> = ({ params }) => {
                 <ul className='grid grid-cols-1 md:grid-cols-2 gap-2'>
                   {project.skillsDeliverables.map((skill, index) => (
                     <li key={index} className='flex items-start gap-2'>
-                      <span className='text-blue-400 mt-1'>•</span>
+                      <span className='text-blue-400'>•</span>
                       <span>{skill}</span>
                     </li>
                   ))}
