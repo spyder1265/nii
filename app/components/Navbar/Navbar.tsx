@@ -24,12 +24,13 @@ const Navbar: React.FC<INavbar> = ({ fixed }) => {
       )}
     >
       <div className='flex md:hidden items-center cursor-pointer flex-shrink-0 text-white mr-6'>
-        <span
+        <a
+          href='/'
           className='font-semibold text-3xl tracking-tight cursor-pointer animate__animated logo animate__rubberBand'
           aria-disabled
         >
           nii monney
-        </span>
+        </a>
       </div>
       <div className='block lg:hidden'>
         {isMenuOpen ? (
@@ -91,9 +92,12 @@ const Navbar: React.FC<INavbar> = ({ fixed }) => {
         className='md:flex hidden items-center cursor-pointer flex-shrink-0 text-white mr-6'
         aria-disabled
       >
-        <span className='font-semibold text-3xl tracking-tight cursor-pointer animate__animated logo animate__rubberBand'>
+        <a
+          href='/'
+          className='font-semibold text-3xl tracking-tight cursor-pointer animate__animated logo animate__rubberBand'
+        >
           nii monney
-        </span>
+        </a>
       </div>
     </nav>
   );
