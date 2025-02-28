@@ -119,7 +119,7 @@ export default function ProjectPage({ params }: PageProps) {
             href='/dashboard/projects'
             className='text-blue-400 hover:underline'
           >
-            &larr;&nbsp;Back to Projects
+            &larr;&nbsp;Back
           </Link>
         </div>
         <div className='flex items-center justify-center min-h-[400px]'>
@@ -136,7 +136,7 @@ export default function ProjectPage({ params }: PageProps) {
           href='/dashboard/projects'
           className='text-blue-400 hover:underline'
         >
-          &larr;&nbsp;Back to Projects
+          &larr;&nbsp;Back
         </Link>
         <div className='flex bg-blue-800 px-5 py-3 rounded-lg hover:bg-blue-950 cursor-pointer'>
           <Link
