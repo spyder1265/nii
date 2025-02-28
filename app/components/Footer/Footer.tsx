@@ -6,7 +6,7 @@ import {
   FaTiktok,
 } from "react-icons/fa6";
 import { FaYoutube } from "react-icons/fa";
-import { SiUpwork } from "react-icons/si";
+import { SiUpwork, SiGmail } from "react-icons/si";
 import Link from "next/link";
 import ContactForm from "../Contact/Contact";
 interface IFooter {}
@@ -37,7 +37,14 @@ const Footer: React.FC<IFooter> = ({}) => {
                 <FaXTwitter />
               </a> */}
               <a
-                href='https://www.linkedin.com/in/nathaniel-monney-238a33237/'
+                href='mailto:niiammahmonney@gmail.com'
+                className='hover:scale-150 transition-all duration-500 hover:mb-3'
+                target='_blank'
+              >
+                <SiGmail />
+              </a>
+              <a
+                href='https://www.linkedin.com/in/nii-monney/'
                 className='hover:scale-150 transition-all duration-500 hover:mb-3'
                 target='_blank'
               >
