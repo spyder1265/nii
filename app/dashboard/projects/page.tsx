@@ -130,7 +130,7 @@ export default function Projects() {
                       ? "bg-green-600"
                       : project.platform === "Passion Project"
                       ? "bg-purple-600"
-                      : project.platform === "Commercial Work"
+                      : project.platform === "Commercial"
                       ? "bg-blue-600"
                       : "bg-orange-500"
                   }`}

@@ -165,7 +165,7 @@ export default function DashboardNav() {
         ></div>
         {/* Sidebar content */}
         <div
-          className={`relative w-64 bg-gray-800 text-gray-300 transform transition-transform duration-300 ${
+          className={`relative w-64 h-full bg-gray-800 text-gray-300 transform transition-transform duration-300 flex flex-col ${
             sidebarOpen ? "translate-x-0" : "-translate-x-full"
           }`}
         >
@@ -173,7 +173,12 @@ export default function DashboardNav() {
             <h2 className='text-lg font-semibold text-white'>{user?.name}</h2>
             <p className='text-sm text-gray-400'>{user?.email}</p>
           </div>
-          <ul className='mt-4 space-y-2'>
+
+          <div className='flex justify-center'>
+            <hr className='border-gray-700 w-11/12' />
+          </div>
+
+          <ul className='mt-4 space-y-2 flex-grow'>
             <li>
               <Link
                 href='/dashboard'
@@ -218,19 +223,8 @@ export default function DashboardNav() {
                 Settings
               </Link>
             </li>
-            <li>
-              {/* <Link
-                href='/signout'
-                onClick={closeSidebar}
-                className={`block px-4 py-2 text-sm hover:bg-gray-700 hover:text-white ${isActive(
-                  "/signout"
-                )}`}
-              >
-                Sign Out
-              </Link> */}
-            </li>
           </ul>
-          <div>
+          <div className='p-4 mt-auto'>
             <SignOutButton />
           </div>
         </div>

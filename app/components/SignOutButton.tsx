@@ -29,7 +29,7 @@ export default function SignOutButton() {
     <button
       onClick={handleSignOut}
       disabled={loading}
-      className='group relative flex items-center justify-center w-full max-w-xs mx-auto 
+      className='group relative flex items-center justify-center w-full max-md:w-3/4 max-w-xs mx-auto 
     bg-gradient-to-r from-red-500 to-red-700 
     text-white font-semibold py-3 px-6 
     rounded-lg shadow-md hover:shadow-xl 
