@@ -51,12 +51,13 @@ interface DashboardCardProps {
 
 function DashboardCard({ title, description, href, icon }: DashboardCardProps) {
   return (
-    <Link href={href} passHref>
-      <div className='bg-gradient-to-br from-gray-900 to-gray-800 text-white shadow-lg rounded-xl p-6 transition-all duration-300 transform hover:scale-105 hover:shadow-2xl cursor-pointer flex flex-col gap-4'>
-        <div className='text-primary'>{icon}</div>
-        <h2 className='text-2xl font-semibold'>{title}</h2>
-        <p className='text-gray-300'>{description}</p>
-      </div>
+    <Link
+      href={href}
+      className='bg-gradient-to-br from-gray-900 to-gray-800 text-white shadow-lg rounded-xl p-6 transition-all duration-300 transform hover:scale-105 hover:shadow-2xl cursor-pointer flex flex-col gap-4'
+    >
+      <div className='text-primary'>{icon}</div>
+      <h2 className='text-2xl font-semibold'>{title}</h2>
+      <p className='text-gray-300'>{description}</p>
     </Link>
   );
 }

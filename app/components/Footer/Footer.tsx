@@ -80,14 +80,11 @@ const Footer: React.FC<IFooter> = ({}) => {
               </a>
             </div>
 
-            <div className='flex max-md:flex-col items-center justify-center w-full gap-5'>
-              <Link
-                href={"/dashboard"}
-                className='text-sm font-sans text-gray-400'
-              >
+            <div className='flex flex-col items-center justify-center w-full gap-5'>
+              <Link href={"/dashboard"} className='text-sm text-gray-400'>
                 Dashboard
               </Link>
-              <p className='text-sm font-sans'>
+              <p className='text-sm'>
                 &copy; {new Date().getFullYear()} Nii Monney
               </p>
             </div>

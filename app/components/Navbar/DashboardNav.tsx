@@ -76,9 +76,9 @@ export default function DashboardNav() {
               href={"/dashboard"}
               className='flex items-center cursor-pointer flex-shrink-0 text-white ml-4'
             >
-              <a href='/' className='font-semibold text-3xl tracking-tight'>
+              <span className='font-semibold text-3xl tracking-tight'>
                 nii monney
-              </a>
+              </span>
             </Link>
           </div>
 

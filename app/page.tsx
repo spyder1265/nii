@@ -85,7 +85,7 @@ export default function Home() {
           </div>
         </header>
         <section className='flex relative top-7 items-center text-center py-8 pb-11 px-8 md:px-56 h-24'>
-          <BlurFade delay={0.25} inView>
+          <BlurFade inView>
             <span className='text-xl max-md:text-sm leading-6 tracking-normal md:w-[700px] font-thin'>
               Combining creativity with technical precision. Whether for brands
               and products
@@ -94,7 +94,7 @@ export default function Home() {
         </section>
         <section className='flex flex-col container items-center justify-center w-full gap-5 py-8 px-4 md:px-56'>
           <Link href={"/projects"}>
-            <h1 className='text-2xl max-md:text-xl font-bold text-center underline'>
+            <h1 className='text-2xl max-md:text-xl font-bold text-center'>
               PROJECTS
             </h1>
           </Link>
