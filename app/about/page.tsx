@@ -176,7 +176,7 @@ const page: React.FC<Ipage> = ({}) => {
         </section>
 
         <footer className='w-full flex items-center justify-center'>
-          <span className='font-sans text-sm text-gray-400'>
+          <span className='text-sm text-gray-400'>
             &copy; Nii Monney {new Date().getFullYear()}
           </span>
         </footer>

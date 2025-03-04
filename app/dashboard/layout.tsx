@@ -1,5 +1,5 @@
 "use client";
-import { Inter } from "next/font/google";
+import { Josefin_Sans } from "next/font/google";
 import "../globals.css";
 import "animate.css";
 import StyledComponentsRegistry from "../../lib/AntdRegistry";
@@ -7,7 +7,7 @@ import DashboardNav from "../components/Navbar/DashboardNav";
 import Sidebar from "../components/SideBar/Sidebar";
 import { Toaster } from "react-hot-toast";
 
-const inter = Inter({ subsets: ["latin"] });
+const josefin = Josefin_Sans({ subsets: ["latin"] });
 
 export default function RootLayout({
   children,
@@ -16,7 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <body className={inter.className}>
+      <body className={josefin.className}>
         <StyledComponentsRegistry>
           <DashboardNav />
           <Sidebar />
