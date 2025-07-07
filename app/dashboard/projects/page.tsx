@@ -13,6 +13,7 @@ interface Project {
   platform: string;
   ytLink?: string;
   skillsDeliverables: string[];
+  archived?: boolean;
 }
 
 function ProjectSkeleton() {
@@ -73,6 +74,21 @@ export default function Projects() {
     fetchProjects();
   }, []);
 
+  const handleArchiveToggle = async (id: string, archived: boolean) => {
+    try {
+      const res = await fetch(`/api/projects/${id}/archive`, {
+        method: "PATCH",
+      });
+      if (res.ok) {
+        setProjects((prev) =>
+          prev.map((p) => (p.id === id ? { ...p, archived: !archived } : p))
+        );
+      }
+    } catch (e) {
+      // Optionally handle error
+    }
+  };
+
   if (loading) {
     return (
       <section className='mb-10'>
@@ -102,45 +118,58 @@ export default function Projects() {
       <h2 className='text-3xl font-semibold text-white'>Projects</h2>
       <div className='mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
         {projects.map((project) => (
-          <Link
-            href={`/dashboard/projects/${project.id}`}
-            key={project.id}
-            className='bg-gray-800 p-6 rounded-xl shadow-lg hover:bg-gray-900 transition-all duration-300'
-          >
-            <div className='flex justify-between items-center pb-3'>
-              <div className='flex flex-col'>
-                <span className='text-xl text-white font-semibold line-clamp-1'>
-                  {project.name}
-                </span>
-                <span className='font-light text-gray-400'>
-                  {project.date
-                    ? new Date(project.date).toLocaleDateString("en-US", {
-                        year: "numeric",
-                        month: "long",
-                      })
-                    : "Unknown Date"}
-                </span>
+          <div key={project.id} className='relative'>
+            <Link
+              href={`/dashboard/projects/${project.id}`}
+              className='bg-gray-800 p-6 rounded-xl shadow-lg hover:bg-gray-900 transition-all duration-300 block'
+            >
+              <div className='flex justify-between items-center pb-3'>
+                <div className='flex flex-col'>
+                  <span className='text-xl text-white font-semibold line-clamp-1'>
+                    {project.name}
+                  </span>
+                  <span className='font-light text-gray-400'>
+                    {project.date
+                      ? new Date(project.date).toLocaleDateString("en-US", {
+                          year: "numeric",
+                          month: "long",
+                        })
+                      : "Unknown Date"}
+                  </span>
+                </div>
+                <div>
+                  <span
+                    className={`px-4 py-1 w-fit rounded-md text-sm font-medium text-white shadow-md p-2 ${
+                      project.platform === "Upwork"
+                        ? "bg-green-600"
+                        : project.platform === "Passion Project"
+                        ? "bg-purple-600"
+                        : project.platform === "Commercial"
+                        ? "bg-blue-600"
+                        : "bg-orange-500"
+                    }`}
+                  >
+                    {project.platform}
+                  </span>
+                </div>
               </div>
-              <div>
-                <span
-                  className={`px-4 py-1 w-fit rounded-md text-sm font-medium text-white shadow-md p-2 ${
-                    project.platform === "Upwork"
-                      ? "bg-green-600"
-                      : project.platform === "Passion Project"
-                      ? "bg-purple-600"
-                      : project.platform === "Commercial"
-                      ? "bg-blue-600"
-                      : "bg-orange-500"
-                  }`}
-                >
-                  {project.platform}
-                </span>
-              </div>
-            </div>
-            <p className='text-gray-400 font-light text-justify tracking-tight leading-relaxed line-clamp-6'>
-              {project.description}
-            </p>
-          </Link>
+              <p className='text-gray-400 font-light text-justify tracking-tight leading-relaxed line-clamp-6'>
+                {project.description}
+              </p>
+            </Link>
+            <button
+              onClick={() =>
+                handleArchiveToggle(project.id, !!project.archived)
+              }
+              className={`absolute top-3 right-3 px-3 py-1 rounded-md text-xs font-semibold shadow transition-all ${
+                project.archived
+                  ? "bg-yellow-500 text-black hover:bg-yellow-600"
+                  : "bg-gray-700 text-white hover:bg-gray-900"
+              }`}
+            >
+              {project.archived ? "Unarchive" : "Archive"}
+            </button>
+          </div>
         ))}
       </div>
     </section>

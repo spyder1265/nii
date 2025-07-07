@@ -139,6 +139,7 @@ export async function GET(req: NextRequest) {
     // If no id parameter is provided, return all projects
     try {
       const projects = await prisma.project.findMany({
+        where: { archived: false },
         orderBy: { createdAt: "desc" },
       });
 
