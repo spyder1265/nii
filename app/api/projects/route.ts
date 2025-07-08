@@ -104,6 +104,7 @@ export async function POST(req: NextRequest) {
 export async function GET(req: NextRequest) {
   try {
     const id = req.nextUrl.searchParams.get("id");
+    const filter = req.nextUrl.searchParams.get("filter");
 
     if (id) {
       try {
@@ -136,10 +137,14 @@ export async function GET(req: NextRequest) {
       }
     }
 
-    // If no id parameter is provided, return all projects
+    let where = {};
+    if (filter === "active") where = { archived: false };
+    else if (filter === "archived") where = { archived: true };
+    // else (all) leave where = {}
+
     try {
       const projects = await prisma.project.findMany({
-        where: { archived: false },
+        where,
         orderBy: { createdAt: "desc" },
       });
 
