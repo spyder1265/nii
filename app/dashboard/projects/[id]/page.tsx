@@ -3,6 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 interface PageProps {
   params: {
@@ -19,6 +21,7 @@ interface Project {
   ytLink: string;
   skillsDeliverables: string[];
   platform: string;
+  archived?: boolean;
 }
 
 function LoadingSkeleton() {
@@ -89,6 +92,8 @@ function LoadingSkeleton() {
 export default function ProjectPage({ params }: PageProps) {
   const [project, setProject] = useState<Project | null>(null);
   const [loading, setLoading] = useState(true);
+  const [archiving, setArchiving] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchProject = async () => {
@@ -106,6 +111,29 @@ export default function ProjectPage({ params }: PageProps) {
 
     fetchProject();
   }, [params.id]);
+
+  const handleArchiveToggle = async () => {
+    if (!project) return;
+    setArchiving(true);
+    try {
+      const res = await fetch(`/api/projects/${project.id}/archive`, {
+        method: "PATCH",
+      });
+      if (res.ok) {
+        toast.success(
+          project.archived ? "Project unarchived!" : "Project archived!"
+        );
+        router.push("/dashboard/projects");
+        router.refresh();
+      } else {
+        toast.error("Failed to update project.");
+      }
+    } catch {
+      toast.error("Failed to update project.");
+    } finally {
+      setArchiving(false);
+    }
+  };
 
   if (loading) {
     return LoadingSkeleton();
@@ -138,13 +166,28 @@ export default function ProjectPage({ params }: PageProps) {
         >
           &larr;&nbsp;Back
         </Link>
-        <div className='flex bg-blue-800 px-5 py-3 rounded-lg hover:bg-blue-950 cursor-pointer'>
-          <Link
-            href={`/dashboard/projects/${project.id}/edit`}
-            className='text-blue-50'
+        <div className='flex gap-3'>
+          <div className='flex bg-blue-800 px-5 py-3 rounded-lg hover:bg-blue-950 cursor-pointer'>
+            <Link
+              href={`/dashboard/projects/${project.id}/edit`}
+              className='text-blue-50'
+            >
+              Edit Project
+            </Link>
+          </div>
+          <button
+            onClick={handleArchiveToggle}
+            disabled={archiving}
+            className={`flex items-center px-5 py-3 rounded-lg font-semibold transition-all shadow
+              ${
+                project?.archived
+                  ? "bg-yellow-500 text-black hover:bg-yellow-600"
+                  : "bg-gray-700 text-white hover:bg-gray-900"
+              }
+              ${archiving ? "opacity-60 cursor-not-allowed" : ""}`}
           >
-            Edit Project
-          </Link>
+            {project?.archived ? "Unarchive" : "Archive"}
+          </button>
         </div>
       </div>
 

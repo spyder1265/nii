@@ -26,7 +26,7 @@ const ProjectsPage = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await fetch("/api/projects");
+        const response = await fetch("/api/projects?filter=active");
         const result = await response.json();
 
         if (result.success) {
