@@ -8,6 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 import BlurFade from "@/components/ui/blur-fade";
 import ProjectCard from "@/app/components/ProjectCard/ProjectCard";
+import { pageview } from "@/lib/gtag";
 
 interface Project {
   id: string;
@@ -43,6 +44,10 @@ export default function Home() {
     };
 
     fetchProjects();
+  }, []);
+
+  useEffect(() => {
+    pageview(window.location.pathname);
   }, []);
 
   const ProjectCardSkeleton = () => {

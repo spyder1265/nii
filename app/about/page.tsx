@@ -1,10 +1,17 @@
+"use client";
 import Image from "next/image";
 import Navbar from "../components/Navbar/Navbar";
 import TypingAnimation from "@/components/ui/typing-animation";
+import { useEffect } from "react";
+import { pageview } from "@/lib/gtag";
 
 interface Ipage {}
 
 const page: React.FC<Ipage> = ({}) => {
+  useEffect(() => {
+    pageview(window.location.pathname);
+  }, []);
+
   return (
     <>
       <main className='min-h-screen bg-gradient-to-b from-black via-gray-900 to-black'>

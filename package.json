@@ -12,6 +12,7 @@
     "@ant-design/cssinjs": "^1.22.0",
     "@emotion/react": "^11.13.5",
     "@emotion/styled": "^11.13.5",
+    "@google-analytics/data": "^5.1.0",
     "@mui/material": "^5.16.8",
     "@prisma/client": "^6.2.1",
     "@radix-ui/react-avatar": "^1.1.2",

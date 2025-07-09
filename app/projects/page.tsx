@@ -6,6 +6,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import BlurFade from "@/components/ui/blur-fade";
 import ProjectCard from "@/app/components/ProjectCard/ProjectCard";
+import { pageview } from "@/lib/gtag";
 
 interface Project {
   id: string;
@@ -42,6 +43,10 @@ const ProjectsPage = () => {
     };
 
     fetchProjects();
+  }, []);
+
+  useEffect(() => {
+    pageview(window.location.pathname);
   }, []);
 
   const fadeInUp = {
