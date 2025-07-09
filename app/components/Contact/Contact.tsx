@@ -1,6 +1,7 @@
 import { useState } from "react";
 import emailjs from "emailjs-com";
 import toast, { Toaster } from "react-hot-toast";
+import { event as gaEvent } from "@/lib/gtag";
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
@@ -19,6 +20,12 @@ export default function ContactForm() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSending(true);
+
+    gaEvent({
+      action: "contact_form_submit",
+      category: "Form",
+      label: formData.email,
+    });
 
     toast.dismiss();
     const loadingToast = toast.loading("Sending email...");
