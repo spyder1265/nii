@@ -7,6 +7,7 @@ import {
   FaPaintBrush,
   FaFolderPlus,
   FaSignOutAlt,
+  FaChartBar,
 } from "react-icons/fa";
 import Link from "next/link";
 import SignOutButton from "../SignOutButton";
@@ -21,6 +22,11 @@ export default function Sidebar() {
       href: "/dashboard/add-project",
       label: "Add Project",
       icon: FaFolderPlus,
+    },
+    {
+      href: "/dashboard/analytics",
+      label: "Analytics",
+      icon: FaChartBar,
     },
   ];
 

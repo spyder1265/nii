@@ -31,12 +31,12 @@ export default function Dashboard() {
           href='/dashboard/settings'
           icon={<Settings size={40} />}
         />
-        <DashboardCard
+        {/* <DashboardCard
           title='Profile'
           description='Update your personal information'
           href='/dashboard/profile'
           icon={<User size={40} />}
-        />
+        /> */}
       </div>
     </div>
   );
