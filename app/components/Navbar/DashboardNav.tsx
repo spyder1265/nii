@@ -214,6 +214,17 @@ export default function DashboardNav() {
             </li>
             <li>
               <Link
+                href='/dashboard/analytics'
+                onClick={closeSidebar}
+                className={`block px-4 py-2 text-sm hover:bg-gray-700 hover:text-white ${isActive(
+                  "/dashboard/analytics"
+                )}`}
+              >
+                Analytics
+              </Link>
+            </li>
+            <li>
+              <Link
                 href='/settings'
                 onClick={closeSidebar}
                 className={`block px-4 py-2 text-sm hover:bg-gray-700 hover:text-white ${isActive(
